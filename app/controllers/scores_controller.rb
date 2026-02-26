@@ -22,14 +22,13 @@ class ScoresController < ApplicationController
   # POST /scores or /scores.json
   def create
     @score = Score.new(score_params)
-
     respond_to do |format|
       if @score.save
-        format.html { redirect_to @score, notice: "Score was successfully created." }
-        format.json { render :show, status: :created, location: @score }
+        format.json { render json: @score, status: :created }
+        format.html { redirect_to scores_path, notice: "保存しました" }
       else
-        format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @score.errors, status: :unprocessable_entity }
+        format.html { render :new }
       end
     end
   end

@@ -20,7 +20,7 @@ class ScoresControllerTest < ActionDispatch::IntegrationTest
       post scores_url, params: { score: { clear_time: @score.clear_time, user_name: @score.user_name } }
     end
 
-    assert_redirected_to score_url(Score.last)
+    assert_redirected_to scores_url
   end
 
   test "should show score" do
