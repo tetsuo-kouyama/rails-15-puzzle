@@ -2,15 +2,28 @@
 
 <% content_for :title, "Scores" %>
 
-<h1>Scores</h1>
+<h1>タイムランキング（TOP 10)</h1>
 
-<div id="scores">
-  <% @scores.each do |score| %>
-    <%= render score %>
-    <p>
-      <%= link_to "Show this score", score %>
-    </p>
-  <% end %>
-</div>
+<table>
+  <thead>
+    <tr>
+      <th>順位</th>
+      <th>名前</th>
+      <th>クリアタイム</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @scores.each_with_index do |score, index| %>
+      <tr>
+        <td><%= index + 1 %>位</td>
+        <td><%= score.user_name %></td>
+        <td><%= score.clear_time %>秒</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<%= link_to "New score", new_score_path %>
+<br>
+<%= link_to "パズルに戻る", root_path %>
+
+

@@ -3,7 +3,7 @@ class ScoresController < ApplicationController
 
   # GET /scores or /scores.json
   def index
-    @scores = Score.all
+    @scores = Score.order(clear_time: :asc, created_at: :asc).limit(10)
   end
 
   # GET /scores/1 or /scores/1.json
