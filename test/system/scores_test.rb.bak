@@ -7,7 +7,7 @@ class ScoresTest < ApplicationSystemTestCase
 
   test "visiting the index" do
     visit scores_url
-    assert_selector "h1", text: "タイムランキング（TOP 10)"
+    assert_selector "h1", text: "タイムランキング（TOP 10）"
   end
 
 #  test "should create score" do
@@ -40,4 +40,5 @@ class ScoresTest < ApplicationSystemTestCase
 #
 #    assert_text "Score was successfully destroyed"
 #  end
-#end
+
+end
