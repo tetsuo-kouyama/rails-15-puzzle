@@ -1,21 +1,14 @@
-<h1>8Puzzles</h1>
-<style>
-  .tile {
-    width: 70px;
-    height: 70px;
-    border: 1px solid blue;
-    border-radius: 10px;
-    text-align: center;
-    font-size: 36px;
-    background-color: white;
-    box-shadow: rgb(128, 128, 128) 5px 5px;
-  }
-</style>
+<h1>スライドパズル</h1>
 
-<table id="table"></table>
-<h2>経過時間：<span id="time">0</span>秒</h2>
+<div class="menu">
+  <h2>難易度を選択してください</h2>
+  <ul>
+    <li><%= link_to "8パズル (3×3)", puzzle_path(8) %></li>
+    <li><%= link_to "15パズル (4×4)", puzzle_path(15) %></li>
+    <li><%= link_to "24パズル (5×5)", puzzle_path(24) %></li>
+  </ul>
+</div>
 
-<div class="controls">
-  <button id="start-button">スタート</button>
-  <%= link_to "ランキングページへ", scores_path, class: "button" %>
+<div class="footer-links">
+  <%= link_to "ランキングを見る", scores_path %>
 </div>

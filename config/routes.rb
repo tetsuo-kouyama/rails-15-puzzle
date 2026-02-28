@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   root "puzzles#index"
   get "puzzles/index"
-  resources :scores
+  resources :puzzles, only: [ :index, :show ]
+  resources :scores, only: [ :index, :create ]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
