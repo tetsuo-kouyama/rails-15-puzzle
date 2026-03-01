@@ -4,6 +4,8 @@ let isPlaying = false;
 let tiles = [];  // タイル配列
 let timer = NaN;
 let startTime = null;
+let gridSize;
+let lastIndex;
 
 // タイルの初期配置
 function init() {
@@ -12,15 +14,15 @@ function init() {
   tiles = [];
 
   // indexはタイルの並び順で、valueはタイルに描画されている数値
-  for (let i = 0; i < 3; i++) {                  // 3行分ループ
+  for (let i = 0; i < gridSize; i++) {                  // 3行分ループ
     let tr = document.createElement("tr");       // <tr>要素の作成
-    for (let j = 0; j < 3; j++) {                // 各列分ループ(3タイルずつ)
+    for (let j = 0; j < gridSize; j++) {                // 各列分ループ(3タイルずつ)
       let td = document.createElement("td");     // <td>要素の作成
-      let index = i * 3 + j;
+      let index = i * gridSize + j;
       td.className = "tile";                     // classの設定
       td.index = index;                          // タイルの並び順
       td.value = index;                          // 描画されている値
-      td.textContent = index == 8 ? "" : index + 1;  // 8は空欄に
+      td.textContent = index === lastIndex ? "" : index + 1;  // 8は空欄に
       tr.appendChild(td);                        // ⑧行<tr>に列<td>を追加
       tiles.push(td);
     }
@@ -34,16 +36,16 @@ function moveTile(i) {
     let moved = false;
   // index-3が0以上であるかを最初にチェックし、それがtrueの場合、
   // すなわち上にタイルが存在する場合に限り「tiles[i-3].value」が０か比較している
-  if (i - 3 >= 0 && tiles[i - 3].value == 8) {
-    swap(i, i - 3); moved = true;           // 上と入れ替え
+  if (i - gridSize >= 0 && tiles[i - gridSize].value === lastIndex) {
+    swap(i, i - gridSize); moved = true;           // 上と入れ替え
     // 下にタイルが存在する場合に比較
-  } else if (i + 3 < 9 && tiles[i + 3].value == 8) {
-    swap(i, i + 3); moved = true;           // 下と入れ替え
+  } else if (i + gridSize < tiles.length && tiles[i + gridSize].value === lastIndex) {
+    swap(i, i + gridSize); moved = true;           // 下と入れ替え
     // 左にタイルが存在する場合に比較
-  } else if (i % 3 != 0 && tiles[i - 1].value == 8) {
+  } else if (i % gridSize != 0 && tiles[i - 1].value === lastIndex) {
     swap(i, i - 1); moved = true;           // 左と入れ替え
     // 右にタイルが存在する場合に比較
-  } else if (i % 3 != 2 && tiles[i + 1].value == 8) {
+  } else if (i % gridSize != gridSize - 1 && tiles[i + 1].value === lastIndex) {
     swap(i, i + 1); moved = true;           // 右と入れ替え
   }
   return moved; // 移動したかを返す
@@ -106,7 +108,7 @@ function finishGame() {
 // タイルをシャッフル
 function shuffle() {
   for (let i = 0; i < 1000; i++) {
-    moveTile(Math.floor(Math.random() * 9));
+    moveTile(Math.floor(Math.random() * tiles.length));
   }
 }
 
@@ -115,8 +117,8 @@ function swap(i, j) {
   let tmp = tiles[i].value;                     // 変更先を一時退避
   tiles[i].value = tiles[j].value;
   tiles[j].value = tmp;
-  tiles[i].textContent = tiles[i].value == 8 ? "" : tiles[i].value + 1;
-  tiles[j].textContent = tiles[j].value == 8 ? "" : tiles[j].value + 1;
+  tiles[i].textContent = tiles[i].value === lastIndex ? "" : tiles[i].value + 1;
+  tiles[j].textContent = tiles[j].value === lastIndex ? "" : tiles[j].value + 1;
 }
 
  // 経過時間計測用タイマー（１秒ごとに実行）
@@ -138,17 +140,20 @@ function checkWin() {
 // Turboによるページ遷移完了時に処理を実行するイベントハンドラ
 document.addEventListener("turbo:load", () => {
   const table = document.getElementById("table");
-  const startButton = document.getElementById("start-button")
+  const startButton = document.getElementById("start-button");
+  const puzzle = document.getElementById("puzzle");
 
-  if (table) {
-    init()
-  }
+  if (!puzzle) return;
+  gridSize = parseInt(puzzle.dataset.gridSize, 10);
+  lastIndex = gridSize * gridSize - 1;
+
+  init();
 
   if (startButton) {
     startButton.removeEventListener("click", startButtonClick);
     startButton.addEventListener("click", startButtonClick);
   }
-}, { onse: false });
+});
 
 // puzzle.js 内のクリア判定が true になった時に呼ぶ
 const sendScore = async (elapsedTime) => {

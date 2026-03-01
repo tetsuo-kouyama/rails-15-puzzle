@@ -2,13 +2,12 @@
 
 <div class="menu">
   <h2>難易度を選択してください</h2>
-  <ul>
-    <li><%= link_to "8パズル (3×3)", puzzle_path(8) %></li>
-    <li><%= link_to "15パズル (4×4)", puzzle_path(15) %></li>
-    <li><%= link_to "24パズル (5×5)", puzzle_path(24) %></li>
-  </ul>
+  <% @difficulties.each do |size| %>
+    <li>
+      <%= link_to "#{size}パズルを遊ぶ", puzzle_path(size) %> |
+      <%= link_to "ランキング", scores_path(difficulty: size) %>
+    </li>
+  <% end %>
 </div>
 
-<div class="footer-links">
-  <%= link_to "ランキングを見る", scores_path %>
-</div>
+
