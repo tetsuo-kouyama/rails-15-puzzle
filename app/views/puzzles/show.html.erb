@@ -2,10 +2,12 @@
 
 <table id="table"></table>
 <h2>経過時間：<span id="time">0</span>秒</h2>
-<div id="puzzle" data-grid-size="<%= @grid_size %>"></div>
+<div id="game-info"
+  data-difficulty="<%= @difficulty %>"
+  data-grid-size="<%= @grid_size %>">
+</div>
 
 <div class="controls">
   <button id="start-button">スタート</button>
-  <%= link_to "ランキングページへ", scores_path, class: "button" %>
-  <%= link_to "トップページへ", root_path %>
+  <%= link_to "トップページへ", root_path, class: "button" %>
 </div>

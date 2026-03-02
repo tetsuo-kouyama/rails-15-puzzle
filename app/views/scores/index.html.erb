@@ -1,8 +1,6 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Scores" %>
 
-<h1>タイムランキング（TOP 10）</h1>
+<h1><%= @difficulty %>パズル ランキング</h1>
 
 <table>
   <thead>
@@ -23,5 +21,13 @@
   </tbody>
 </table>
 
+<br>
+<div class="difficulty-tabs">
+  <% @difficulties.each do |size| %>
+    <%= link_to "#{size}パズル",
+                scores_path(difficulty: size),
+                class: "tab-button #{'active' if @difficulty == size}" %>
+  <% end %>
+</div>
 <br>
 <%= link_to "パズルに戻る", root_path %>

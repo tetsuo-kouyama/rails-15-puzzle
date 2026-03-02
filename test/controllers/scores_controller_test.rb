@@ -12,9 +12,9 @@ class ScoresControllerTest < ActionDispatch::IntegrationTest
 
   test "should create score" do
     assert_difference("Score.count") do
-      post scores_url, params: { score: { clear_time: @score.clear_time, user_name: @score.user_name } }
+      post scores_url, params: { score: { clear_time: @score.clear_time, user_name: @score.user_name, difficulty: @score.difficulty } }
     end
 
-    assert_redirected_to scores_url
+    assert_redirected_to scores_url(difficulty: @score.difficulty)
   end
 end
