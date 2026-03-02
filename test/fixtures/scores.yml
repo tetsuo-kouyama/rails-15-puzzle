@@ -3,7 +3,9 @@
 one:
   user_name: MyString
   clear_time: 1
+  difficulty: 8
 
 two:
   user_name: MyString
   clear_time: 1
+  difficulty: 15

@@ -30,7 +30,7 @@ class ScoresController < ApplicationController
     respond_to do |format|
       if @score.save
         format.json { render json: @score, status: :created }
-        format.html { redirect_to scores_path, notice: "保存しました" }
+        format.html { redirect_to scores_path(difficulty: @score.difficulty), notice: "保存しました" }
       else
         format.json { render json: @score.errors, status: :unprocessable_entity }
         format.html { render :new }
