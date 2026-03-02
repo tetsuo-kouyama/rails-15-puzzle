@@ -3,7 +3,12 @@ class ScoresController < ApplicationController
 
   # GET /scores or /scores.json
   def index
-    @scores = Score.order(clear_time: :asc, created_at: :asc).limit(10)
+    @difficulty = Score.valid_difficulty(params[:difficulty])
+    @difficulties = Score::DIFFICULTY_CONFIG.keys
+
+    @scores = Score.where(difficulty: @difficulty)
+                   .order(clear_time: :asc, created_at: :asc)
+                   .limit(10)
   end
 
   # GET /scores/1 or /scores/1.json
@@ -64,6 +69,6 @@ class ScoresController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def score_params
-      params.require(:score).permit(:user_name, :clear_time)
+      params.require(:score).permit(:user_name, :clear_time, :difficulty)
     end
 end

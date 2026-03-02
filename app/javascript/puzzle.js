@@ -78,6 +78,7 @@ function startButtonClick(e) {
 // どの場所がクリックされたか
 function click(e) {
   if (!isPlaying) return;
+  if (!e.target.classList.contains("tile")) return;
 
   const i = e.target.index;
   const moved = moveTile(i);
@@ -141,10 +142,10 @@ function checkWin() {
 document.addEventListener("turbo:load", () => {
   const table = document.getElementById("table");
   const startButton = document.getElementById("start-button");
-  const puzzle = document.getElementById("puzzle");
+  const infoElement = document.getElementById("game-info");
 
-  if (!puzzle) return;
-  gridSize = parseInt(puzzle.dataset.gridSize, 10);
+  if (!infoElement) return;
+  gridSize = parseInt(infoElement.dataset.gridSize, 10);
   lastIndex = gridSize * gridSize - 1;
 
   init();
@@ -155,9 +156,11 @@ document.addEventListener("turbo:load", () => {
   }
 });
 
-// puzzle.js 内のクリア判定が true になった時に呼ぶ
+// クリア判定が true になった時に呼ぶ
 const sendScore = async (elapsedTime) => {
   const token = document.querySelector('meta[name="csrf-token"]').content;
+  const infoElement = document.getElementById("game-info");
+  const difficulty = Number(infoElement.dataset.difficulty);
 
   try {
     const response = await fetch("/scores", {
@@ -169,22 +172,19 @@ const sendScore = async (elapsedTime) => {
       body: JSON.stringify({
         score: {
           user_name: "ゲストユーザー",
-          clear_time: Number(elapsedTime)
+          clear_time: Number(elapsedTime),
+          difficulty: difficulty
         }
       })
     });
 
-    const data = await response.json();
-
-    if (data.id) {
-      alert("記録を保存しました！");
-      window.location.href = "/scores";
+    if (response.ok) {
+      // 保存成功後、その難易度のランキングページへ遷移
+      window.location.href = `/scores?difficulty=${difficulty}`;
     } else {
-      alert("保存に失敗しました" + JSON.stringify(data));
+      console.error("保存に失敗しました");
     }
-
   } catch (error) {
-    console.error(error);
-    alert("ネットワークエラーが発生しました。もう一度お試しください。");
+    console.error("通信エラー:", error);
   }
 };
