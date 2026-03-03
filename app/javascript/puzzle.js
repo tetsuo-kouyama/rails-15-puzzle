@@ -171,7 +171,6 @@ const sendScore = async (elapsedTime) => {
       },
       body: JSON.stringify({
         score: {
-          user_name: "ゲストユーザー",
           clear_time: Number(elapsedTime),
           difficulty: difficulty
         }

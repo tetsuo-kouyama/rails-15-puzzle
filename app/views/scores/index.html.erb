@@ -14,7 +14,7 @@
     <% @scores.each_with_index do |score, index| %>
       <tr>
         <td><%= index + 1 %>位</td>
-        <td><%= score.user_name %></td>
+        <td><%= score.user&.name || "ゲストユーザー" %></td>
         <td><%= score.clear_time %>秒</td>
       </tr>
     <% end %>
