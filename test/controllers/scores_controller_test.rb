@@ -20,7 +20,10 @@ class ScoresControllerTest < ActionDispatch::IntegrationTest
 
   test "should create score with user_id when logged in" do
     user = users(:one)
+
     post login_url, params: { session: { name: user.name } }
+
+    assert_not_nil session[:user_id], "ログインセッションが作成されていません"
 
     assert_difference("Score.count") do
       post scores_url, params: {
@@ -28,6 +31,8 @@ class ScoresControllerTest < ActionDispatch::IntegrationTest
       }
     end
 
-    assert_equal user.id, Score.last.user_id
+    new_score = Score.last
+    assert_equal user.id, new_score.user_id
+    assert_redirected_to scores_url(difficulty: 24)
   end
 end

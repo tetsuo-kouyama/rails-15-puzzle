@@ -61,17 +61,14 @@ function startButtonClick(e) {
     timer = setInterval(tick, 1000)
     isPlaying = true;
     btn.innerText = "やりなおす"
-    document.querySelector(".button").style.display = "none";
   } else {
     if (timer) {
-      clearInterval(timer);
-      timer = null;
+      stopTimer();
     }
     init();
     document.getElementById("time").textContent = "0";
     isPlaying = false;
     btn.innerText = "スタート"
-    document.querySelector(".button").style.display = "inline";
   }
 }
 
@@ -85,7 +82,7 @@ function click(e) {
 
   if (moved) {
     if (checkWin()) {
-      clearInterval(timer);
+      stopTimer();
       finishGame(); // 終了処理を呼び出す
     }
   }
@@ -93,12 +90,6 @@ function click(e) {
 
 // クリア後の処理
 function finishGame() {
-  if (timer) {
-    clearInterval(timer);
-    timer = null;
-  }
-  isPlaying = false; // 終了状態にする
-
   const startButton = document.getElementById("start-button");
   if (startButton) startButton.innerText = "スタート";
 
@@ -128,6 +119,18 @@ function tick() {
   let elapsed = Math.floor((now.getTime() - startTime.getTime()) / 1000);
   document.getElementById("time").textContent = elapsed; // 経過時間を表示
 }
+
+// ページ遷移時にタイマーを停止
+function stopTimer() {
+  if (!isNaN(timer)) {
+    clearInterval(timer);
+    timer = NaN;
+    isPlaying = false;
+  }
+}
+
+document.addEventListener("turbo:before-visit", stopTimer);
+document.addEventListener("turbo:before-cache", stopTimer);
 
 // クリアを判定する関数
 function checkWin() {

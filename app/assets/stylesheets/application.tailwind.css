@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
   #table {
-  width: 400px;
-  height: 400px;
-  table-layout: fixed;
-  border-collapse: collapse;
+    width: 400px;
+    height: 400px;
+    table-layout: fixed;
+    border-collapse: collapse;
   }
 
   .tile {
@@ -15,3 +15,25 @@
     background-color: white;
     box-shadow: rgb(128, 128, 128) 5px 5px;
   }
+
+  .minimal-nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    background-color: transparent; /* 背景を透明にして圧迫感を消す */
+    color: #666;
+  }
+
+  .minimal-nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+
+  .nav-right {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+  }
+
