@@ -18,6 +18,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session.delete(:user_id)
-    redirect_to root_path, status: :see_othe, notice: "ログアウトしました"
+    redirect_to root_path, status: :see_other, notice: "ログアウトしました"
   end
 end
