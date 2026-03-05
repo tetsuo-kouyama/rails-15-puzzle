@@ -1,0 +1,33 @@
+ja:
+  navbar:
+    return: ← 戻る
+    login: ログイン
+    logout: ログアウト
+    new_registration: 新規登録
+  puzzles:
+    title: スライドパズル
+    please_select: 難易度を選択してください
+    play_with_size: "%{size}パズルを遊ぶ"
+    ranking: ランキング
+    start: スタート
+    title_with_size: "%{size}パズル"
+    elapsed_time_html: "経過時間：%{time_id} 秒"
+  scores:
+    title: "%{size}パズル ランキング"
+    rank: 順位
+    name: ユーザー名
+    clear_time: クリアタイム
+    guest_user: ゲストユーザー
+    rank_format: "%{num}位"
+    score: "%{time}秒"
+    title_with_size: "%{size}パズル"
+  sessions:
+    title: ログイン
+    login: ログイン
+  users:
+    title: ユーザー登録
+    registration: 登録
+    errors:
+      one: 1件のエラーがあります
+      other: "%{count}件のエラーがあります"
+

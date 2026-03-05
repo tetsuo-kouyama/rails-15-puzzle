@@ -1,8 +1,8 @@
-<h1>ユーザー登録</h1>
+<h1><%= t('users.title') %></h1>
 
 <% if @user.errors.any? %>
   <div style="color: red;">
-    <h2><%= @user.errors.count %>エラーがあります</h2>
+    <h2><%= t('users.errors', count: @user.errors.count) %></h2>
     <ul>
       <% @user.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -13,10 +13,10 @@
 
 <%= form_with model: @user do |f| %>
   <div>
-    <%= f.label :name, "ユーザー名" %>
+    <%= f.label :name, User.human_attribute_name(:name) %>
     <%= f.text_field :name, required: true, autofocus: true %>
   </div>
-  <%= f.submit "登録" %>
+  <%= f.submit t('users.registration') %>
 <% end %>
 
 

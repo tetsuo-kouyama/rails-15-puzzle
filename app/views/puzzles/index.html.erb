@@ -1,11 +1,11 @@
-<h1>スライドパズル</h1>
+<h1><%= t('puzzles.title') %></h1>
 
 <div class="menu">
-  <h2>難易度を選択してください</h2>
+  <h2><%= t('puzzles.please_select') %></h2>
   <% @difficulties.each do |size| %>
     <li>
-      <%= link_to "#{size}パズルを遊ぶ", puzzle_path(size) %> |
-      <%= link_to "ランキング", scores_path(difficulty: size) %>
+      <%= link_to t('puzzles.play_with_size', size: size), puzzle_path(size) %> |
+      <%= link_to t('puzzles.ranking'), scores_path(difficulty: size) %>
     </li>
   <% end %>
 </div>

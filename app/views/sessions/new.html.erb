@@ -1,5 +1,5 @@
 <div>
-  <h1>ログイン</h1>
+  <h1><%= t('sessions.title') %></h1>
 
   <% if flash[:alert] %>
     <div style="color: red;">
@@ -9,10 +9,10 @@
 
   <%= form_with url: login_path, scope: :session do |f| %>
     <div>
-      <%= f.label :name, "ユーザー名" %>
+      <%= f.label :name, User.human_attribute_name(:name) %>
       <%= f.text_field :name, required: true, autofocus: true %>
     </div>
-    <%= f.submit "ログイン" %>
+    <%= f.submit t('sessions.login') %>
   <% end %>
 </div>
 

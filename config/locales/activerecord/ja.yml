@@ -1,0 +1,10 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      score: スコア
+    attributes:
+      user:
+        name: ユーザー名
+      score:
+        clear_time: クリアタイム
