@@ -1,12 +1,14 @@
-<h1><%= @difficulty %>パズル</h1>
+<h1><%= t('puzzles.title_with_size', size: @difficulty) %></h1>
 
 <table id="table"></table>
-<h2>経過時間：<span id="time">0</span>秒</h2>
+<h2>
+  <%= t('puzzles.elapsed_time_html', time_id: content_tag(:span, "0", id: "time")) %>
+</h2>
 <div id="game-info"
   data-difficulty="<%= @difficulty %>"
   data-grid-size="<%= @grid_size %>">
 </div>
 
 <div class="controls">
-  <button id="start-button">スタート</button>
+  <button id="start-button"><%= t('puzzles.start') %></button>
 </div>

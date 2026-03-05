@@ -1,7 +1,7 @@
 <div id="<%= dom_id score %>">
   <p>
     <strong>User name:</strong>
-    <%= score.user.present? ? score.user.name : "ゲストユーザー" %>
+    <%= score.user.present? ? score.user.name : t('scores.guest_user') %>
   </p>
 
   <p>

@@ -1,21 +1,21 @@
 <% content_for :title, "Scores" %>
 
-<h1><%= @difficulty %>パズル ランキング</h1>
+<h1><%= t('scores.title', size: @difficulty) %></h1>
 
 <table>
   <thead>
     <tr>
-      <th>順位</th>
-      <th>名前</th>
-      <th>クリアタイム</th>
+      <th><%= t('scores.rank') %></th>
+      <th><%= t('scores.name') %></th>
+      <th><%= t('scores.clear_time') %></th>
     </tr>
   </thead>
   <tbody>
     <% @scores.each_with_index do |score, index| %>
       <tr>
-        <td><%= index + 1 %>位</td>
-        <td><%= score.user&.name || "ゲストユーザー" %></td>
-        <td><%= score.clear_time %>秒</td>
+        <td><%= t('scores.rank_format', num: index + 1) %></td>
+        <td><%= score.user&.name || t('scores.guest_user') %></td>
+        <td><%= t("scores.score", time: score.clear_time) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,7 +24,7 @@
 <br>
 <div class="difficulty-tabs">
   <% @difficulties.each do |size| %>
-    <%= link_to "#{size}パズル",
+    <%= link_to t('scores.title_with_size', size: size),
                 scores_path(difficulty: size),
                 class: "tab-button #{'active' if @difficulty == size}" %>
   <% end %>
