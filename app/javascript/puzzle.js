@@ -6,6 +6,7 @@ let timer = NaN;
 let startTime = null;
 let gridSize;
 let lastIndex;
+let i18n = {};
 
 // タイルの初期配置
 function init() {
@@ -53,14 +54,14 @@ function moveTile(i) {
 
 // ボタン押下時のハンドラ
 function startButtonClick(e) {
-  const btn = e.currentTarget;
+  const startButton = e.currentTarget;
   if (!isPlaying) {
     init();
     shuffle();
     startTime = new Date();
     timer = setInterval(tick, 1000)
     isPlaying = true;
-    btn.innerText = "やりなおす"
+    startButton.textContent = i18n.resetButton;
   } else {
     if (timer) {
       stopTimer();
@@ -68,7 +69,7 @@ function startButtonClick(e) {
     init();
     document.getElementById("time").textContent = "0";
     isPlaying = false;
-    btn.innerText = "スタート"
+    startButton.textContent = i18n.startButton;
   }
 }
 
@@ -91,7 +92,10 @@ function click(e) {
 // クリア後の処理
 function finishGame() {
   const startButton = document.getElementById("start-button");
-  if (startButton) startButton.innerText = "スタート";
+
+  if (startButton) {
+    startButton.textContent = i18n.startButton;
+  }
 
   const elapsedTime = document.getElementById("time").textContent;
   sendScore(elapsedTime);
@@ -141,11 +145,21 @@ function checkWin() {
   }
   return true;
 }
+
+// 翻訳テキストを受け取る関数
+function getI18n() {
+  const container = document.getElementById("game-container");
+  if (!container) return {};
+
+  return JSON.parse(container.dataset.i18n);
+}
+
 // Turboによるページ遷移完了時に処理を実行するイベントハンドラ
 document.addEventListener("turbo:load", () => {
   const table = document.getElementById("table");
   const startButton = document.getElementById("start-button");
   const infoElement = document.getElementById("game-info");
+  i18n = getI18n();
 
   if (!infoElement) return;
   gridSize = parseInt(infoElement.dataset.gridSize, 10);

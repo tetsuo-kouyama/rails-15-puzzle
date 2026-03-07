@@ -13,7 +13,8 @@ class ApplicationController < ActionController::Base
 
   def require_login
     unless current_user
-      redirect_to login_path, alert: "ログインが必要です"
+      flash[:error] = t('defaults.require_login')
+      redirect_to login_path
     end
   end
 end

@@ -1,0 +1,26 @@
+<div class="fixed top-5 left-1/2 -translate-x-1/2 space-y-2 z-50">
+  <% flash.each do |type, message| %>
+    <% color =
+      case type.to_sym
+      when :notice, :success then "bg-green-500"
+      when :alert, :error then "bg-red-500"
+      when :warning then "bg-yellow-500"
+      else "bg-gray-500"
+      end
+    %>
+
+    <div
+      data-controller="flash"
+      class="<%= color %> text-white px-4 py-3 rounded-lg shadow-lg flex items-center justify-between min-w-[250px] animate-fade-in"
+    >
+      <span><%= message %></span>
+
+      <button
+        data-action="flash#close"
+        class="ml-4 font-bold text-white hover:text-gray-200"
+      >
+        ×
+      </button>
+    </div>
+  <% end %>
+</div>
