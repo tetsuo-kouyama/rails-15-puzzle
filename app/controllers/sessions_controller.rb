@@ -8,16 +8,16 @@ class SessionsController < ApplicationController
 
     if user
       session[:user_id] = user.id
-      redirect_to root_path, notice: t('.success', name: user.name)
+      redirect_to root_path, notice: t(".success", name: user.name)
     else
       # ユーザーが見つからない場合、新規登録へ促すか、エラーを出す
-      flash.now[:error] = t('.failure')
+      flash.now[:error] = t(".failure")
       render :new, status: :unprocessable_entity
     end
   end
 
   def destroy
     session.delete(:user_id)
-    redirect_to root_path, status: :see_other, notice: t('.success')
+    redirect_to root_path, status: :see_other, notice: t(".success")
   end
 end
