@@ -1,5 +1,9 @@
 ja:
   activerecord:
+    errors:
+      messages:
+        blank: "を入力してください"
+        taken: "はすでに使われています"
     models:
       user: ユーザー
       score: スコア

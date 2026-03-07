@@ -9,6 +9,8 @@
   data-grid-size="<%= @grid_size %>">
 </div>
 
-<div class="controls">
-  <button id="start-button"><%= t('puzzles.start') %></button>
+<div id="game-container" data-i18n="<%= puzzle_i18n %>">
+    <button id="start-button">
+      <%= t("puzzles.show.start_button") %>
+    </button>
 </div>

@@ -1,4 +1,6 @@
 ja:
+  defaults:
+    require_login: ログインが必要です
   navbar:
     return: ← 戻る
     login: ログイン
@@ -12,6 +14,10 @@ ja:
     start: スタート
     title_with_size: "%{size}パズル"
     elapsed_time_html: "経過時間：%{time_id} 秒"
+    show:
+      start_button: "スタート"
+      reset_button: "リセット"
+
   scores:
     title: "%{size}パズル ランキング"
     rank: 順位
@@ -21,13 +27,22 @@ ja:
     rank_format: "%{num}位"
     score: "%{time}秒"
     title_with_size: "%{size}パズル"
+    create:
+      success: 保存しました
   sessions:
     title: ログイン
     login: ログイン
+    create:
+      success: "%{name}さん、ログインしました！"
+      failure: ユーザー名が登録されていません
+    destroy:
+      success: ログアウトしました
   users:
     title: ユーザー登録
     registration: 登録
     errors:
       one: 1件のエラーがあります
       other: "%{count}件のエラーがあります"
+    create:
+      success: "%{name}を登録しました"
 
