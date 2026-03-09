@@ -1,19 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import "tailwindcss";
 
-  #table {
-    width: 400px;
-    height: 400px;
-    table-layout: fixed;
-    border-collapse: collapse;
-  }
+  body{
+    margin:0;
+    background:#ddd;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    font-family:sans-serif;
 
-  .tile {
-    border: 1px solid blue;
-    border-radius: 10px;
-    text-align: center;
-    font-size: 2rem;
-    background-color: white;
-    box-shadow: rgb(128, 128, 128) 5px 5px;
+    /* Railsのパス解決を使用 */
+    background-image: url('brick_wall.png');
+    /* 小さい画像を縦横に並べて敷き詰める */
+    background-repeat: repeat;
+    /* ドット絵をぼかさず、くっきり表示させる（最重要） */
+    image-rendering: pixelated;
+    /* 背景が動かないように固定する場合（任意） */
+    background-attachment: fixed;
+    /* 画像のサイズ調整（元のドット感を活かすなら auto、大きくしたいなら 200px 等） */
+    background-size: 1024px;
   }
 
   .minimal-nav {

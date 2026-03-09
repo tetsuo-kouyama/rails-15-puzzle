@@ -1,16 +1,39 @@
-<h1><%= t('puzzles.title_with_size', size: @difficulty) %></h1>
+<% content_for :css do %>
+  <%= stylesheet_link_tag "puzzles", "data-turbo-track": "reload" %>
+<% end %>
 
-<table id="table"></table>
-<h2>
-  <%= t('puzzles.elapsed_time_html', time_id: content_tag(:span, "0", id: "time")) %>
-</h2>
-<div id="game-info"
-  data-difficulty="<%= @difficulty %>"
-  data-grid-size="<%= @grid_size %>">
+<%# 1. データをすべて親のcontainerに集約する %>
+<div class="game-container"
+     id="game-master"
+     data-i18n="<%= puzzle_i18n %>"
+     data-difficulty="<%= @difficulty %>"
+     data-grid-size="<%= @grid_size %>">
+
+  <header class="game-header">
+    <h1><%= t('puzzles.title_with_size', size: @difficulty) %></h1>
+
+  </header>
+
+  <main class="game-body">
+    <div class="puzzle-frame">
+      <div id="puzzle-board"></div>
+    </div>
+  </main>
+
+  <footer class="game-footer">
+    <div id="controls" class="controls-row">
+      <div class="timer-display">
+        <div class="timer-bg">
+          <%= t('puzzles.elapsed_time_html', time_id: content_tag(:span, "0", id: "time")) %>
+        </div>
+      </div>
+      
+      <button id="start-button" class="start-btn">
+        <%= t("puzzles.show.start_button") %>
+      </button>
+    </div>
+  </footer>
 </div>
 
-<div id="game-container" data-i18n="<%= puzzle_i18n %>">
-    <button id="start-button">
-      <%= t("puzzles.show.start_button") %>
-    </button>
-</div>
+
+
