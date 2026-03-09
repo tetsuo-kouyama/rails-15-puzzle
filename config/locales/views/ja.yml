@@ -17,7 +17,6 @@ ja:
     show:
       start_button: "スタート"
       reset_button: "リセット"
-
   scores:
     title: "%{size}パズル ランキング"
     rank: 順位

@@ -8,33 +8,40 @@ let gridSize;
 let lastIndex;
 let i18n = {};
 
-// タイルの初期配置
+
 function init() {
-  let table = document.getElementById("table");  // ③<table>要素の参照
-  table.innerHTML = "";
+  let board = document.getElementById("puzzle-board"); // <table>ではなく<div>を想定
+  board.innerHTML = "";
   tiles = [];
 
-  // indexはタイルの並び順で、valueはタイルに描画されている数値
-  for (let i = 0; i < gridSize; i++) {                  // 3行分ループ
-    let tr = document.createElement("tr");       // <tr>要素の作成
-    for (let j = 0; j < gridSize; j++) {                // 各列分ループ(3タイルずつ)
-      let td = document.createElement("td");     // <td>要素の作成
-      let index = i * gridSize + j;
-      td.className = "tile";                     // classの設定
-      td.index = index;                          // タイルの並び順
-      td.value = index;                          // 描画されている値
-      td.textContent = index === lastIndex ? "" : index + 1;  // 8は空欄に
-      tr.appendChild(td);                        // ⑧行<tr>に列<td>を追加
-      tiles.push(td);
+  board.style.setProperty('--grid-size', gridSize);
+
+  for (let i = 0; i < gridSize * gridSize; i++) {
+    let row = Math.floor(i / gridSize);
+    let col = i % gridSize;
+    let tile = document.createElement("div");
+    tile.className = "tile";
+    tile.dataset.index = i; // カスタムデータ属性を使用
+    tile.value = i;
+
+    if (i === lastIndex) {
+      tile.classList.add("empty");
+      tile.textContent = "";
+    } else {
+      //tile.style.backgroundImage = `url(${window.tileImageUrl})`;
+      tile.textContent = i + 1;
     }
-    table.appendChild(tr);                       // テーブルに行<tr>を追加
+
+    board.appendChild(tile);
+    tiles.push(tile);
   }
 
-  table.addEventListener("click", click);
+  board.addEventListener("click", click); // イベントリスナー
 }
 
+
 function moveTile(i) {
-    let moved = false;
+  let moved = false;
   // index-3が0以上であるかを最初にチェックし、それがtrueの場合、
   // すなわち上にタイルが存在する場合に限り「tiles[i-3].value」が０か比較している
   if (i - gridSize >= 0 && tiles[i - gridSize].value === lastIndex) {
@@ -73,12 +80,12 @@ function startButtonClick(e) {
   }
 }
 
-// どの場所がクリックされたか
+
 function click(e) {
   if (!isPlaying) return;
   if (!e.target.classList.contains("tile")) return;
 
-  const i = e.target.index;
+  const i = Number(e.target.dataset.index);
   const moved = moveTile(i);
 
   if (moved) {
@@ -115,6 +122,8 @@ function swap(i, j) {
   tiles[j].value = tmp;
   tiles[i].textContent = tiles[i].value === lastIndex ? "" : tiles[i].value + 1;
   tiles[j].textContent = tiles[j].value === lastIndex ? "" : tiles[j].value + 1;
+  tiles[i].classList.toggle("empty", tiles[i].value === lastIndex);
+  tiles[j].classList.toggle("empty", tiles[j].value === lastIndex);
 }
 
  // 経過時間計測用タイマー（１秒ごとに実行）
@@ -147,25 +156,35 @@ function checkWin() {
 }
 
 // 翻訳テキストを受け取る関数
-function getI18n() {
-  const container = document.getElementById("game-container");
-  if (!container) return {};
+//function getI18n() {
+//  const container = document.getElementById("controls");
+//  if (!container) return {};
+//
+//  return JSON.parse(container.dataset.i18n);
+//}
 
-  return JSON.parse(container.dataset.i18n);
+// 共通データを取得する関数
+function getGameSettings() {
+  const master = document.getElementById("game-master");
+  if (!master) return null;
+
+  return {
+    i18n: JSON.parse(master.dataset.i18n || "{}"),
+    gridSize: parseInt(master.dataset.gridSize, 10),
+  };
 }
 
 // Turboによるページ遷移完了時に処理を実行するイベントハンドラ
 document.addEventListener("turbo:load", () => {
-  const table = document.getElementById("table");
-  const startButton = document.getElementById("start-button");
-  const infoElement = document.getElementById("game-info");
-  i18n = getI18n();
-
-  if (!infoElement) return;
-  gridSize = parseInt(infoElement.dataset.gridSize, 10);
+  const settings = getGameSettings();
+  if (!settings) return;
+  i18n = settings.i18n;
+  gridSize = settings.gridSize;
   lastIndex = gridSize * gridSize - 1;
 
-  init();
+  init()
+
+  const startButton = document.getElementById("start-button");
 
   if (startButton) {
     startButton.removeEventListener("click", startButtonClick);
@@ -176,8 +195,8 @@ document.addEventListener("turbo:load", () => {
 // クリア判定が true になった時に呼ぶ
 const sendScore = async (elapsedTime) => {
   const token = document.querySelector('meta[name="csrf-token"]').content;
-  const infoElement = document.getElementById("game-info");
-  const difficulty = Number(infoElement.dataset.difficulty);
+  const container = document.getElementById("game-master");
+  const difficulty = Number(container.dataset.difficulty);
 
   try {
     const response = await fetch("/scores", {
