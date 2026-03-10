@@ -1,0 +1,46 @@
+.minimal-nav {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center; /* 中のコンテナを画面中央に置く */
+
+  /* 共通設定を一箇所にまとめる */
+  font-family: 'DotGothic16', sans-serif;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 0.9rem;
+  text-shadow: 1px 1px 0px #000;
+}
+
+.nav-container {
+  /* パズル枠（.puzzle-frame）の width 設定と合わせる */
+  width: min(80vmin, 600px);
+
+  display: flex;
+  justify-content: space-between; /* これで左右の端に分かれる */
+  align-items: center;
+  padding: 10px 0; /* 左右のpaddingは0にして端に密着させる */
+}
+
+.nav-left, .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* リンク自体のドット絵スタイル */
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+}
+
+.user-name {
+  color: #55ff00;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.nav-link:hover {
+  color: #ffff00;
+}

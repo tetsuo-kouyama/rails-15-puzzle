@@ -6,6 +6,7 @@ ja:
     login: ログイン
     logout: ログアウト
     new_registration: 新規登録
+    guest_user: ゲストユーザー
   puzzles:
     title: スライドパズル
     please_select: 難易度を選択してください

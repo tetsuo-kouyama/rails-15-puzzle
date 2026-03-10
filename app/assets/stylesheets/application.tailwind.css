@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import "tailwindcss";
+@import "./header.css";
+
 
   body{
     margin:0;
@@ -8,10 +10,10 @@
     display:flex;
     flex-direction:column;
     align-items:center;
-    font-family:sans-serif;
+    font-family: 'DotGothic16', 'PixelMplus12', sans-serif;
 
     /* Railsのパス解決を使用 */
-    background-image: url('brick_wall.png');
+    background-image: url('/assets/brick_wall.png');
     /* 小さい画像を縦横に並べて敷き詰める */
     background-repeat: repeat;
     /* ドット絵をぼかさず、くっきり表示させる（最重要） */
@@ -20,27 +22,13 @@
     background-attachment: fixed;
     /* 画像のサイズ調整（元のドット感を活かすなら auto、大きくしたいなら 200px 等） */
     background-size: 1024px;
-  }
 
-  .minimal-nav {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 20px;
-    font-size: 0.9rem;
-    background-color: transparent; /* 背景を透明にして圧迫感を消す */
-    color: #666;
-  }
+    /* ドットをくっきりさせる（全体適用） */
+    image-rendering: pixelated;
 
-  .minimal-nav a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-  }
-
-  .nav-right {
-    display: flex;
-    gap: 15px;
-    align-items: center;
+    /* テキストのアンチエイリアスをオフ（ドット絵フォントを綺麗に見せる） */
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   @layer utilities {
@@ -59,3 +47,5 @@
       }
     }
   }
+
+
