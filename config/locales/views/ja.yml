@@ -14,7 +14,7 @@ ja:
     ranking: ランキング
     start: スタート
     title_with_size: "%{size}パズル"
-    elapsed_time_html: "経過時間：%{time_id} 秒"
+    elapsed_time_html: "タイム：%{time_id} "
     show:
       start_button: "スタート"
       reset_button: "リセット"
@@ -25,7 +25,6 @@ ja:
     clear_time: クリアタイム
     guest_user: ゲストユーザー
     rank_format: "%{num}位"
-    score: "%{time}秒"
     title_with_size: "%{size}パズル"
     create:
       success: 保存しました
