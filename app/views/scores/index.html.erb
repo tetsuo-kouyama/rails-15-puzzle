@@ -1,32 +1,34 @@
-<% content_for :title, "Scores" %>
+<header class="game-title">
+  <h1><%= t('scores.title', size: @difficulty) %></h1>
+</header>
 
-<h1><%= t('scores.title', size: @difficulty) %></h1>
-
-<table>
-  <thead>
-    <tr>
-      <th><%= t('scores.rank') %></th>
-      <th><%= t('scores.name') %></th>
-      <th><%= t('scores.clear_time') %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @scores.each_with_index do |score, index| %>
-      <tr>
-        <td><%= t('scores.rank_format', num: index + 1) %></td>
-        <td><%= score.user&.name || t('scores.guest_user') %></td>
-        <td><%= t("scores.score", time: score.clear_time) %></td>
-      </tr>
+<div class="menu ranking-container ranking-board">
+  <div class="difficulty-tabs">
+    <% @difficulties.each do |size| %>
+      <%= link_to t('scores.title_with_size', size: size),
+                  scores_path(difficulty: size),
+                  class: "tab-button #{'active' if @difficulty == size}" %>
     <% end %>
-  </tbody>
-</table>
+  </div>
 
-<br>
-<div class="difficulty-tabs">
-  <% @difficulties.each do |size| %>
-    <%= link_to t('scores.title_with_size', size: size),
-                scores_path(difficulty: size),
-                class: "tab-button #{'active' if @difficulty == size}" %>
-  <% end %>
+  <div class="ranking-table-wrapper">
+    <table class="ranking-table">
+      <thead>
+        <tr>
+          <th><%= t('scores.rank') %></th>
+          <th><%= t('scores.name') %></th>
+          <th><%= t('scores.clear_time') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @scores.each_with_index do |score, index| %>
+          <tr class="<%= "rank-#{index + 1}" if index < 3 %>">
+            <td><%= t('scores.rank_format', num: index + 1) %></td>
+            <td><%= score.user&.name || t('scores.guest_user') %></td>
+            <td><%= t("scores.score", time: score.clear_time) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
-

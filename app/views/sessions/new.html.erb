@@ -1,18 +1,22 @@
-<div>
+<header class="game-title">
   <h1><%= t('sessions.title') %></h1>
+</header>
 
+<div class="menu login-container">
   <% if flash[:alert] %>
-    <div style="color: red;">
+    <div class="flash-alert">
       <%= flash[:alert] %>
     </div>
   <% end %>
 
-  <%= form_with url: login_path, scope: :session do |f| %>
-    <div>
+  <%= form_with url: login_path, scope: :session, class: "game-form" do |f| %>
+    <div class="form-group">
       <%= f.label :name, User.human_attribute_name(:name) %>
-      <%= f.text_field :name, required: true, autofocus: true %>
+      <%= f.text_field :name, required: true, autofocus: true, class: "pixel-input" %>
     </div>
-    <%= f.submit t('sessions.login') %>
+
+    <div class="form-actions">
+      <%= f.submit t('sessions.login'), class: "pixel-button" %>
+    </div>
   <% end %>
 </div>
-

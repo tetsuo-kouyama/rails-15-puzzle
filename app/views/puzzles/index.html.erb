@@ -1,13 +1,17 @@
-<h1><%= t('puzzles.title') %></h1>
+<header class="game-title">
+  <h1><%= t('puzzles.title') %></h1>
+</header>
 
 <div class="menu">
   <h2><%= t('puzzles.please_select') %></h2>
-  <% @difficulties.each do |size| %>
-    <li>
-      <%= link_to t('puzzles.play_with_size', size: size), puzzle_path(size) %> |
-      <%= link_to t('puzzles.ranking'), scores_path(difficulty: size) %>
-    </li>
-  <% end %>
+  <ul>
+    <% @difficulties.each do |size| %>
+      <li class="menu-item">
+        <%= link_to t('puzzles.play_with_size', size: size), puzzle_path(size) %>
+        <%= link_to t('puzzles.ranking'), scores_path(difficulty: size) %>
+      </li>
+    <% end %>
+  </ul>
 </div>
 
 

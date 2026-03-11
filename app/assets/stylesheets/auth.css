@@ -1,0 +1,42 @@
+  /* 石板（.menu）の基本設定は使い回す */
+  .login-container {
+    /* フォームが少し縦に長くなる可能性があるので、min-heightを調整 */
+    min-height: 400px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* 入力欄をドット絵風にする */
+  .pixel-input {
+    background-color: #222;
+    border: 2px solid #555;
+    color: #fff;
+    padding: 8px;
+    font-family: 'DotGothic16', sans-serif;
+    outline: none;
+  }
+
+  .pixel-input:focus {
+    border-color: #ffff00; /* フォーカス時に黄色く光らせる */
+  }
+
+  /* 送信ボタンをドット絵風にする */
+  .pixel-button {
+    background-color: #444;
+    border: 3px double #fff; /* 二重線でレトロ感を出す */
+    color: #fff;
+    padding: 10px 30px;
+    font-family: 'DotGothic16', sans-serif;
+    cursor: pointer;
+  }
+
+  .pixel-button:hover {
+    background-color: #666;
+    color: #ffff00;
+  }
+

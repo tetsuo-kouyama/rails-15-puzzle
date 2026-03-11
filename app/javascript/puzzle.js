@@ -155,14 +155,6 @@ function checkWin() {
   return true;
 }
 
-// 翻訳テキストを受け取る関数
-//function getI18n() {
-//  const container = document.getElementById("controls");
-//  if (!container) return {};
-//
-//  return JSON.parse(container.dataset.i18n);
-//}
-
 // 共通データを取得する関数
 function getGameSettings() {
   const master = document.getElementById("game-master");

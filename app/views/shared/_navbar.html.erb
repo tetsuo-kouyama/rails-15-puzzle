@@ -2,8 +2,7 @@
   <div class="nav-container">
     <div class="nav-left">
       <% unless current_page?(root_path) %>
-        <% destination = controller_name == 'puzzles' && action_name == 'show' ? (request.referer || root_path) : root_path %>
-        <%= link_to t('navbar.return'), destination, class: "nav-link" %>
+        <%= link_to t('navbar.return'), root_path, class: "nav-link" %>
       <% end %>
     </div>
 

@@ -1,0 +1,100 @@
+  .game-title {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 8px 0; /* 15pxから大幅カット */
+
+    /* フォント設定 */
+    font-family: 'DotGothic16', 'PixelMplus12', sans-serif;
+    font-size: clamp(18px, 6vw, 28px);
+    color: #ffff00;
+    /* ドット絵風の装飾 */
+    text-shadow: 2px 2px 0px #000;
+    letter-spacing: 2px;
+
+    /* スリムな境界線 */
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  .game-title h1 {
+    margin: 0;
+    font-size: inherit;
+    font-weight: normal;
+  }
+
+  .menu {
+    background-image: url('board.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* 背景画像の中央（石板部分）にコンテンツを配置 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    /* 画像の枠の内側に収まるように幅を制限 */
+    width: 95%;
+    max-width: 700px;
+    min-height: clamp(200px, 40vw, 350px);
+    margin: 20px auto;
+    padding: 10% 5%; /* 縁の石に文字が被らないように余白を作る */
+
+    /* ドット絵フォントの設定 */
+    font-family: 'DotGothic16', sans-serif;
+    color: #fff;
+    text-align: center;
+  }
+
+  .menu h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  .menu ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* リストの黒点を消して、ゲームメニュー風にする */
+  .menu li {
+    list-style: none;
+    margin: 10px 0;
+    padding: 0;
+    font-size: clamp(14px, 4vw, 22px);
+  }
+
+  .menu li::before {
+    content: "▶";
+    margin-right: 10px;
+    color: transparent;
+  }
+
+  .menu li:hover::before {
+    color: #ffff00;
+  }
+
+
+  .menu-item {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .menu-item a:first-child::after {
+    content: " | ";
+    margin-left: 10px;
+    color: white;
+  }
+
+  /* リンクの色とホバー演出 */
+  .menu a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .menu a:hover {
+    color: #ffff00; /* ホバーで黄色に光らせる */
+  }
