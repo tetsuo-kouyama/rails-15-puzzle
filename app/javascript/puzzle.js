@@ -76,7 +76,7 @@ function startButtonClick(e) {
       stopTimer();
     }
     init();
-    document.getElementById("time").textContent = "0";
+    document.getElementById("time").textContent = "00:00";
     isPlaying = false;
     startButton.textContent = i18n.startButton;
   }
@@ -132,7 +132,20 @@ function swap(i, j) {
 function tick() {
   let now = new Date();
   let elapsed = Math.floor((now.getTime() - startTime.getTime()) / 1000);
-  document.getElementById("time").textContent = elapsed; // 経過時間を表示
+  document.getElementById("time").textContent = formatTime(elapsed); // 経過時間を表示
+}
+
+// 現在の秒数を 00:00 形式の文字列にする関数
+function formatTime(totalSeconds) {
+  totalSeconds = Math.floor(totalSeconds); // 小数点を切り捨てる
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  // padStart(2, '0') を使うと、1桁の時に 0 を埋める
+  const m = String(minutes).padStart(2, '0');
+  const s = String(seconds).padStart(2, '0');
+
+  return `${m}:${s}`;
 }
 
 // ページ遷移時にタイマーを停止
