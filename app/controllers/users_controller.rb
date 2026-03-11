@@ -11,6 +11,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to root_path, notice: t(".success", name: @user.name)
     else
+      @user.name = ""
       flash.now[:error] = @user.errors.full_messages.join("/")
       render :new, status: :unprocessable_entity
     end

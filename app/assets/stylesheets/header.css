@@ -9,7 +9,7 @@
   font-family: 'DotGothic16', sans-serif;
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 0.9rem;
+  font-size: clamp(12px, 2.5vw, 15px);
   text-shadow: 1px 1px 0px #000;
 }
 
@@ -20,7 +20,7 @@
   display: flex;
   justify-content: space-between; /* これで左右の端に分かれる */
   align-items: center;
-  padding: 10px 0; /* 左右のpaddingは0にして端に密着させる */
+  padding: clamp(6px, 1.5vw, 10px) 0;
 }
 
 .nav-left, .nav-right {

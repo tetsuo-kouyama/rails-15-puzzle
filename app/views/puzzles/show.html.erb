@@ -2,7 +2,6 @@
   <%= stylesheet_link_tag "puzzles", "data-turbo-track": "reload" %>
 <% end %>
 
-<%# 1. データをすべて親のcontainerに集約する %>
 <div class="game-container"
      id="game-master"
      data-i18n="<%= puzzle_i18n %>"
@@ -11,7 +10,6 @@
 
   <header class="game-header">
     <h1><%= t('puzzles.title_with_size', size: @difficulty) %></h1>
-
   </header>
 
   <main class="game-body">
@@ -27,7 +25,7 @@
           <%= t('puzzles.elapsed_time_html', time_id: content_tag(:span, "0", id: "time")) %>
         </div>
       </div>
-      
+
       <button id="start-button" class="start-btn">
         <%= t("puzzles.show.start_button") %>
       </button>

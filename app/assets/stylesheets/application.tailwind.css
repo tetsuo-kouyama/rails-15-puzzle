@@ -1,8 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 @import "tailwindcss";
 @import "./header.css";
-
+@import "./top.css";
+@import "./auth.css";
+@import "./ranking.css";
 
   body{
     margin:0;
@@ -10,10 +13,9 @@
     display:flex;
     flex-direction:column;
     align-items:center;
-    font-family: 'DotGothic16', 'PixelMplus12', sans-serif;
+    font-family: 'DotGothic16', sans-serif;
 
     /* Railsのパス解決を使用 */
-    background-image: url('/assets/brick_wall.png');
     /* 小さい画像を縦横に並べて敷き詰める */
     background-repeat: repeat;
     /* ドット絵をぼかさず、くっきり表示させる（最重要） */
@@ -22,9 +24,6 @@
     background-attachment: fixed;
     /* 画像のサイズ調整（元のドット感を活かすなら auto、大きくしたいなら 200px 等） */
     background-size: 1024px;
-
-    /* ドットをくっきりさせる（全体適用） */
-    image-rendering: pixelated;
 
     /* テキストのアンチエイリアスをオフ（ドット絵フォントを綺麗に見せる） */
     -webkit-font-smoothing: none;
@@ -47,5 +46,3 @@
       }
     }
   }
-
-

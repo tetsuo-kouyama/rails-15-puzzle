@@ -1,11 +1,16 @@
-<h1><%= t('users.title') %></h1>
+<header class="game-title">
+  <h1><%= t('users.title') %></h1>
+</header>
 
-<%= form_with model: @user do |f| %>
-  <div>
-    <%= f.label :name, User.human_attribute_name(:name) %>
-    <%= f.text_field :name, required: true, autofocus: true %>
-  </div>
-  <%= f.submit t('users.registration') %>
-<% end %>
+<div class="menu login-container">
+  <%= form_with model: @user, class: "game-form" do |f| %>
+    <div class="form-group">
+      <%= f.label :name, User.human_attribute_name(:name) %>
+      <%= f.text_field :name, required: true, autofocus: true, class: "pixel-input" %>
+    </div>
 
-
+    <div class="form-actions">
+      <%= f.submit t('users.registration'), class: "pixel-button" %>
+    </div>
+  <% end %>
+</div>
