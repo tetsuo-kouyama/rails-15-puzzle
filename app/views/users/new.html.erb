@@ -2,7 +2,7 @@
   <h1><%= t('users.title') %></h1>
 </header>
 
-<div class="menu login-container">
+<div class="menu login-container" style="<%= board_background_style %>">
   <%= form_with model: @user, class: "game-form" do |f| %>
     <div class="form-group">
       <%= f.label :name, User.human_attribute_name(:name) %>

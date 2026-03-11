@@ -2,7 +2,7 @@
   <h1><%= t('sessions.title') %></h1>
 </header>
 
-<div class="menu login-container">
+<div class="menu login-container" style="<%= board_background_style %>">
   <% if flash[:alert] %>
     <div class="flash-alert">
       <%= flash[:alert] %>

@@ -11,6 +11,7 @@ let i18n = {};
 
 function init() {
   let board = document.getElementById("puzzle-board"); // <table>ではなく<div>を想定
+  const tileImageUrl = board.dataset.tileImageUrl;
   board.innerHTML = "";
   tiles = [];
 
@@ -21,6 +22,7 @@ function init() {
     let col = i % gridSize;
     let tile = document.createElement("div");
     tile.className = "tile";
+    tile.style.backgroundImage = `url('${tileImageUrl}')`;
     tile.dataset.index = i; // カスタムデータ属性を使用
     tile.value = i;
 
