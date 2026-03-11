@@ -51,7 +51,7 @@
     inset: 0; /* 親要素の端から端まで広げる */
 
     /* 石枠画像をここに指定 */
-    background-image: url("frame_stone.png");
+    background-image: var(--frame-url);
     background-size: 175% 100%; /* 調整 */
     background-repeat: no-repeat;
     background-position: center;
@@ -74,12 +74,10 @@
     grid-template-rows: repeat(var(--grid-size, 3), 1fr);
     gap: 4px;
 
-    background-image: url("background_wall.png");
     background-size: cover;
   }
 
   .tile {
-    background-image: url("tile_green.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -109,7 +107,6 @@
 /* スタートボタン（ピクセルアート風） */
   .start-btn {
     /* 背景画像の設定 */
-    background-image: url("start_btn.png");
     background-size: 100% 100%; /* 画像をボタンのサイズにぴったり合わせる */
     background-repeat: no-repeat;
     background-color: transparent; /* 下地の色を消す */
@@ -158,7 +155,6 @@
 
     /* タイマーの背景設定 */
   .timer-bg {
-    background-image: url("timer_base.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
 

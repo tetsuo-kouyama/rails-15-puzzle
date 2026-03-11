@@ -2,7 +2,8 @@
   <h1><%= t('scores.title', size: @difficulty) %></h1>
 </header>
 
-<div class="menu ranking-container ranking-board">
+<div class="menu ranking-container ranking-board"
+     style="background-image: url('<%= asset_path("ranking.png") %>');">
   <div class="difficulty-tabs">
     <% @difficulties.each do |size| %>
       <%= link_to t('scores.title_with_size', size: size),

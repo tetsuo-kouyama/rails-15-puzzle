@@ -2,7 +2,7 @@
   <h1><%= t('puzzles.title') %></h1>
 </header>
 
-<div class="menu">
+<div class="menu" style="<%= board_background_style %>">
   <h2><%= t('puzzles.please_select') %></h2>
   <ul>
     <% @difficulties.each do |size| %>

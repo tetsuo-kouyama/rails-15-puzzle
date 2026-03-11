@@ -1,5 +1,4 @@
   .ranking-container.ranking-board {
-    background-image: url('ranking.png'); /* 生成した縦長画像 */
     background-size: 100% 100%; /* 画像をコンテナにフィットさせる */
     width: 95%;
     max-width: 700px;
