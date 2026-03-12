@@ -1,0 +1,26 @@
+  /* タイトル */
+  h1 {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 8px 0; /* 15pxから大幅カット */
+
+    /* フォント設定 */
+    font-family: 'DotGothic16', sans-serif;
+    font-size: min(5vmin, 22px);
+    color: #ffff00;
+    /* ドット絵風の装飾 */
+    text-shadow: 2px 2px 0px #000;
+    letter-spacing: 2px;
+
+    /* スリムな境界線 */
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  /* ゲーム全体への適用 */
+  .game-container {
+    /* ドットをくっきりさせるプロパティ */
+    image-rendering: pixelated; /* Chrome, Edge, Safari */
+    image-rendering: crisp-edges; /* Firefox */
+  }

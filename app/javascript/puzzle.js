@@ -7,6 +7,7 @@ let startTime = null;
 let gridSize;
 let lastIndex;
 let i18n = {};
+let toastTimer;
 
 
 function init() {
@@ -92,7 +93,6 @@ function click(e) {
 
   if (moved) {
     if (checkWin()) {
-      stopTimer();
       finishGame(); // 終了処理を呼び出す
     }
   }
@@ -106,8 +106,8 @@ function finishGame() {
     startButton.textContent = i18n.startButton;
   }
 
-  const elapsedTime = document.getElementById("time").textContent;
-  sendScore(elapsedTime);
+  stopTimer();
+  sendScore();
 }
 
 // タイルをシャッフル
@@ -132,7 +132,9 @@ function swap(i, j) {
 function tick() {
   let now = new Date();
   let elapsed = Math.floor((now.getTime() - startTime.getTime()) / 1000);
-  document.getElementById("time").textContent = formatTime(elapsed); // 経過時間を表示
+  const timeElement = document.getElementById("time");
+  timeElement.textContent = formatTime(elapsed); // 経過時間を表示
+  timeElement.dataset.seconds = elapsed;
 }
 
 // 現在の秒数を 00:00 形式の文字列にする関数
@@ -181,6 +183,42 @@ function getGameSettings() {
   };
 }
 
+// メッセージを作る関数
+function showClearToast(elapsedTime, rank) {
+  if (!i18n || !i18n.clearMessage) return;
+  const timeText = formatTime(elapsedTime);
+  const message = i18n.clearMessage
+    .replace("%{rank}", rank)
+    .replace("%{time}", timeText);
+
+  displayToast(message);
+}
+
+// トーストを表示するロジック
+function displayToast(message) {
+  const toast = document.getElementById("success-toast");
+  const toastMessage = document.getElementById("toast-message");
+
+  if (!toast || !toastMessage) return;
+
+  toastMessage.textContent = message;
+  toast.classList.add("is-visible");
+
+  clearTimeout(toastTimer);
+
+  toastTimer = setTimeout(() => {
+    hideToast();
+  }, 3000);
+}
+
+// トーストを隠す共通関数
+function hideToast() {
+  const toast = document.getElementById("success-toast");
+  if (toast) toast.classList.remove("is-visible");
+
+  clearTimeout(toastTimer);
+}
+
 // Turboによるページ遷移完了時に処理を実行するイベントハンドラ
 document.addEventListener("turbo:load", () => {
   const settings = getGameSettings();
@@ -192,17 +230,28 @@ document.addEventListener("turbo:load", () => {
   init()
 
   const startButton = document.getElementById("start-button");
-
   if (startButton) {
     startButton.removeEventListener("click", startButtonClick);
     startButton.addEventListener("click", startButtonClick);
   }
+
+  const closeButton = document.getElementById("close-toast");
+  if (closeButton) {
+    // ページ読み込み時に一度だけ「消す機能」をセット
+    closeButton.removeEventListener("click", hideToast);
+    closeButton.addEventListener("click", hideToast);
+  }
 });
 
 // クリア判定が true になった時に呼ぶ
-const sendScore = async (elapsedTime) => {
+const sendScore = async () => {
   const token = document.querySelector('meta[name="csrf-token"]').content;
   const container = document.getElementById("game-master");
+  
+  const timeElement = document.getElementById("time");
+  if (!timeElement || !container) return;
+
+  const seconds = Number(timeElement.dataset.seconds);
   const difficulty = Number(container.dataset.difficulty);
 
   try {
@@ -214,16 +263,21 @@ const sendScore = async (elapsedTime) => {
       },
       body: JSON.stringify({
         score: {
-          clear_time: Number(elapsedTime),
+          clear_time: seconds,
           difficulty: difficulty
         }
       })
     });
 
     if (response.ok) {
+      const data = await response.json();
+      showClearToast(data.time, data.rank);
       // 保存成功後、その難易度のランキングページへ遷移
-      window.location.href = `/scores?difficulty=${difficulty}`;
+      setTimeout(() => {
+        window.location.href = `/scores?difficulty=${difficulty}`;
+      }, 3000);
     } else {
+      const error = await response.json();
       console.error("保存に失敗しました");
     }
   } catch (error) {

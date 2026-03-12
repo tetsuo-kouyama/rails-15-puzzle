@@ -1,7 +1,3 @@
-<% content_for :css do %>
-  <%= stylesheet_link_tag "puzzles", "data-turbo-track": "reload" %>
-<% end %>
-
 <div class="game-container"
      id="game-master"
      data-i18n="<%= puzzle_i18n %>"
@@ -18,6 +14,12 @@
       <div id="puzzle-board"
            style="background-image: url('<%= asset_path("background_wall.png") %>');"
            data-tile-image-url="<%= asset_path('tile_green.png') %>">
+      </div>
+      <div id="success-toast" class="clear-toast">
+
+        <button id="close-toast" class="close-toast-btn">×</button>
+       
+        <span id="toast-message" class="text-pixel"></span>
       </div>
     </div>
   </main>
@@ -38,6 +40,6 @@
     </div>
   </footer>
 </div>
-「
+
 
 

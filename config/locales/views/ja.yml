@@ -18,6 +18,10 @@ ja:
     show:
       start_button: "スタート"
       reset_button: "リセット"
+      clear_message: |
+        クリア！
+        タイムは%{time}でした！
+        第%{rank}位です！
   scores:
     title: "%{size}パズル ランキング"
     rank: 順位
