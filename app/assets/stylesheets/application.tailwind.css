@@ -2,10 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 @import "tailwindcss";
-@import "./header.css";
-@import "./top.css";
-@import "./auth.css";
-@import "./ranking.css";
+@import "./layouts/header.css";
+@import "./auth/auth.css";
+@import "./pages/top.css";
+@import "./pages/ranking.css";
 @import "./puzzles/layout.css";
 @import "./puzzles/board.css";
 @import "./puzzles/ui.css";
