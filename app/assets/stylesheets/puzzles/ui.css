@@ -1,0 +1,135 @@
+  /* スタートボタン（ピクセルアート風） */
+  .start-btn {
+    /* 背景画像の設定 */
+    background-size: 100% 100%; /* 画像をボタンのサイズにぴったり合わせる */
+    background-repeat: no-repeat;
+    background-color: transparent; /* 下地の色を消す */
+
+    width: min(40vmin, 200px);
+    aspect-ratio: 10 / 3; /* 画像の比率に合わせて固定 */
+
+    font-size: min(4vmin, 18px); /* 文字も一緒に小さくする */
+
+    border: none;
+    font-family: 'DotGothic16', sans-serif;
+    color: #fff; /* 画像の色に合わせて調整 */
+    text-shadow: 2px 2px 0px #000; /* 文字を見やすくする */
+
+    cursor: pointer;
+    transition: transform 0.1s;
+
+    /* テキストのアンチエイリアス（滑らかにする機能）をオフにする */
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* 文字を少し太くし、ドット感を出す */
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+
+  .start-btn:hover {
+    filter: brightness(1.1); /* マウスを乗せた時に少し明るくする演出 */
+  }
+
+  .start-btn:active {
+    /* 押した時に少し沈む演出 */
+    transform: translateY(4px);
+  }
+
+  .game-footer {
+    margin-top: -3vmin;
+  }
+
+  .controls-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: min(3vmin, 15px);
+  }
+
+  /* タイマーの背景設定 */
+  .timer-bg {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+
+    width: min(40vmin, 200px);
+    height: min(18vmin, 90px);
+    font-size: min(3.5vmin, 18px);
+
+    /* 文字を「画像の中央」に配置する設定 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    font-family: 'DotGothic16', sans-serif;
+    color: #fff;
+    text-shadow: 2px 2px 0px #000;
+    font-weight: bold;
+    letter-spacing: 2px;
+
+    position: relative;
+    top: -1px;   /* 数値を調整して「下」にずらす（例: 2px, 3px） */
+    left: 1vmin;
+  }
+
+  /* タイマー内の数字（#time）だけ少し強調する */
+  #time {
+    font-size: min(4vmin, 18px);
+    margin-left: 5px;
+    color: #ffff00; /* 数字だけ色を変えるとより見やすい */
+  }
+
+  .clear-toast {
+    display: none; /* JSで制御するため初期は非表示 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+
+    /* 石板のようなデザイン */
+    background-color: #2d2d2d; /* 濃い石の色 */
+    color: #fbbf24;            /* ゴールド系の文字色 */
+    border: 4px solid #92400e; /* 錆びた鉄や濃い木の枠 */
+    box-shadow: 0 0 0 4px #000, 0 20px 50px rgba(0,0,0,0.8);
+
+    text-align: center;
+    width: min(90vw, 400px);
+    padding: 2rem;
+  }
+
+  /* タイムが表示されるメインテキスト */
+  #toast-message {
+    white-space: pre-line;
+    font-family: 'DotGothic16', sans-serif;
+    font-size: min(4.5vmin, 24px);
+    font-weight: bold;
+    line-height: 1.6;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  /* 閉じるボタン（右上の[×]） */
+  .close-toast-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #78350f;
+    font-family: monospace;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+
+  .close-toast-btn:hover {
+    color: #fbbf24;
+  }
+
+  /* JSで表示するためのクラス */
+  .clear-toast.is-visible {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }

@@ -1,3 +1,3 @@
 //= link_tree ../images
 //= link_tree ../builds
-//= link puzzles.css
+//= link application.css

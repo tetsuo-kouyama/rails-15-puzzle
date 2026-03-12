@@ -6,6 +6,9 @@
 @import "./top.css";
 @import "./auth.css";
 @import "./ranking.css";
+@import "./puzzles/layout.css";
+@import "./puzzles/board.css";
+@import "./puzzles/ui.css";
 
   body{
     margin:0;

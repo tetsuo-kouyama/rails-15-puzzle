@@ -23,14 +23,24 @@ class ScoresController < ApplicationController
   def create
     @score = Score.new(score_params)
     @score.user = current_user if current_user
-    respond_to do |format|
-      if @score.save
-        format.json { render json: @score, status: :created }
-        format.html { redirect_to scores_path(difficulty: @score.difficulty), notice: t(".明日やる") }
-      else
-        format.json { render json: @score.errors, status: :unprocessable_entity }
-        format.html { render :new, status: :unprocessable_entity }
-      end
+
+    if @score.save
+      scope = Score.where(difficulty: @score.difficulty)
+
+      better_time_count = scope
+        .where("clear_time < ?", @score.clear_time)
+        .count
+
+      same_time_better_date_count = scope
+        .where(clear_time: @score.clear_time)
+        .where("created_at < ?", @score.created_at)
+        .count
+
+      rank = better_time_count + same_time_better_date_count + 1
+
+      render json: { rank: rank, time: @score.clear_time }
+    else
+      render json: { status: "error" }, status: :unprocessable_entity
     end
   end
 
