@@ -8,6 +8,9 @@ class ScoresController < ApplicationController
     @scores = Score.where(difficulty: @difficulty)
                    .order(clear_time: :asc, created_at: :asc)
                    .limit(10)
+
+    @last_score_id = session[:last_score_id]
+    session.delete(:last_score_id)
   end
 
   def show
@@ -26,6 +29,7 @@ class ScoresController < ApplicationController
 
     if @score.save
       scope = Score.where(difficulty: @score.difficulty)
+      session[:last_score_id] = @score.id
 
       better_time_count = scope
         .where("clear_time < ?", @score.clear_time)

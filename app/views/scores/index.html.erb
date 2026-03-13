@@ -23,7 +23,7 @@
       </thead>
       <tbody>
         <% @scores.each_with_index do |score, index| %>
-          <% is_new_record = params[:new_score_id].to_i == score.id %>
+          <% is_new_record = @last_score_id.to_i == score.id %>
           <tr class="ranking-row <%= "rank-#{index + 1}" if index < 3 %> <%= 'highlight-me' if is_new_record %>">
             <td><%= t('scores.rank_format', num: index + 1) %></td>
             <td><%= score.user&.name || t('scores.guest_user') %></td>
