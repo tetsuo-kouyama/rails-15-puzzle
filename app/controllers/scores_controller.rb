@@ -38,7 +38,7 @@ class ScoresController < ApplicationController
 
       rank = better_time_count + same_time_better_date_count + 1
 
-      render json: { rank: rank, time: @score.clear_time }
+      render json: { rank: rank, time: @score.clear_time, id: @score.id }
     else
       render json: { status: "error" }, status: :unprocessable_entity
     end

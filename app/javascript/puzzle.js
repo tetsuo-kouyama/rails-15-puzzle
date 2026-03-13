@@ -247,7 +247,7 @@ document.addEventListener("turbo:load", () => {
 const sendScore = async () => {
   const token = document.querySelector('meta[name="csrf-token"]').content;
   const container = document.getElementById("game-master");
-  
+
   const timeElement = document.getElementById("time");
   if (!timeElement || !container) return;
 
@@ -271,10 +271,11 @@ const sendScore = async () => {
 
     if (response.ok) {
       const data = await response.json();
+      const newScoreId = data.id; // サーバーから返ってきた新しいスコアのID
       showClearToast(data.time, data.rank);
       // 保存成功後、その難易度のランキングページへ遷移
       setTimeout(() => {
-        window.location.href = `/scores?difficulty=${difficulty}`;
+        window.location.href = `/scores?difficulty=${difficulty}&new_score_id=${newScoreId}`;
       }, 3000);
     } else {
       const error = await response.json();

@@ -49,6 +49,7 @@
   .menu h2 {
     margin-top: 0;
     margin-bottom: 10px;
+    font-size: clamp(14px, 3vw, 20px);
   }
 
   .menu ul {

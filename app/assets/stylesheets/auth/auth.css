@@ -1,7 +1,18 @@
   /* 石板（.menu）の基本設定は使い回す */
   .login-container {
-    /* フォームが少し縦に長くなる可能性があるので、min-heightを調整 */
-    min-height: min(60vh, 400px);
+    height: auto;
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+
+    padding: 32px 20px;
+    /* 中身がはみ出さないように計算に含める */
+    box-sizing: border-box;
+
+    /* 画像も一緒に伸びるように設定を確認 */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 
   .form-group {
@@ -17,6 +28,7 @@
     border: 2px solid #555;
     color: #fff;
     padding: 8px;
+    font-size: 16px;
     font-family: 'DotGothic16', sans-serif;
     outline: none;
 
@@ -44,3 +56,13 @@
     color: #ffff00;
   }
 
+@media (max-width: 480px) {
+  .form-group {
+    margin-bottom: 15px; /* 少し詰める */
+  }
+
+  .pixel-input, .pixel-button {
+    padding: 10px; /* 少しスリムに */
+    font-size: 14px;
+  }
+}
