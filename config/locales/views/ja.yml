@@ -8,7 +8,7 @@ ja:
     new_registration: 新規登録
     guest_user: ゲストユーザー
   puzzles:
-    title: スライドパズル
+    title: エンシェント・グリッド
     please_select: 難易度を選択してください
     play_with_size: "%{size}パズルを遊ぶ"
     ranking: ランキング

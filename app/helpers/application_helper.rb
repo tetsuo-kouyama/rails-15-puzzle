@@ -9,4 +9,9 @@ module ApplicationHelper
     sec = seconds % 60
     format("%02d:%02d", min, sec)
   end
+
+  def page_title(title = "")
+    base_title = "Ancient Grid"
+    title.present? ? "#{title} | #{base_title}" : base_title
+  end
 end
