@@ -1,3 +1,5 @@
+<% content_for(:title, t('puzzles.title_with_size', size: @difficulty)) %>
+
 <div class="game-container"
      id="game-master"
      data-i18n="<%= puzzle_i18n %>"
@@ -18,7 +20,7 @@
       <div id="success-toast" class="clear-toast">
 
         <button id="close-toast" class="close-toast-btn">×</button>
-       
+
         <span id="toast-message" class="text-pixel"></span>
       </div>
     </div>
