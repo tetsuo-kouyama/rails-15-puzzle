@@ -22,6 +22,11 @@ ja:
         クリア！
         タイムは%{time}でした！
         第%{rank}位です！
+    messages:
+      save_error: スコアの保存に失敗しました
+      network_error: |
+        通信エラーが発生しました
+        接続を確認してください
   scores:
     title: "%{size}パズル ランキング"
     rank: 順位
