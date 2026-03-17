@@ -9,9 +9,9 @@ let lastIndex;
 let i18n = {};
 let toastTimer;
 
-
+// 盤面を生成する関数
 function init() {
-  let board = document.getElementById("puzzle-board"); // <table>ではなく<div>を想定
+  let board = document.getElementById("puzzle-board");
   const tileImageUrl = board.dataset.tileImageUrl;
   board.innerHTML = "";
   tiles = [];
@@ -31,7 +31,6 @@ function init() {
       tile.classList.add("empty");
       tile.textContent = "";
     } else {
-      //tile.style.backgroundImage = `url(${window.tileImageUrl})`;
       tile.textContent = i + 1;
     }
 
@@ -45,17 +44,16 @@ function init() {
 
 function moveTile(i) {
   let moved = false;
-  // index-3が0以上であるかを最初にチェックし、それがtrueの場合、
-  // すなわち上にタイルが存在する場合に限り「tiles[i-3].value」が０か比較している
+  // 上にタイルが存在する場合に比較
   if (i - gridSize >= 0 && tiles[i - gridSize].value === lastIndex) {
-    swap(i, i - gridSize); moved = true;           // 上と入れ替え
-    // 下にタイルが存在する場合に比較
+    swap(i, i - gridSize); moved = true;    // 上と入れ替え
+  // 下にタイルが存在する場合に比較
   } else if (i + gridSize < tiles.length && tiles[i + gridSize].value === lastIndex) {
-    swap(i, i + gridSize); moved = true;           // 下と入れ替え
-    // 左にタイルが存在する場合に比較
+    swap(i, i + gridSize); moved = true;    // 下と入れ替え
+  // 左にタイルが存在する場合に比較
   } else if (i % gridSize != 0 && tiles[i - 1].value === lastIndex) {
     swap(i, i - 1); moved = true;           // 左と入れ替え
-    // 右にタイルが存在する場合に比較
+  // 右にタイルが存在する場合に比較
   } else if (i % gridSize != gridSize - 1 && tiles[i + 1].value === lastIndex) {
     swap(i, i + 1); moved = true;           // 右と入れ替え
   }
@@ -150,7 +148,7 @@ function formatTime(totalSeconds) {
   return `${m}:${s}`;
 }
 
-// ページ遷移時にタイマーを停止
+// タイマーを停止する関数
 function stopTimer() {
   if (!isNaN(timer)) {
     clearInterval(timer);
@@ -214,7 +212,7 @@ function displayToast(message, isError = false) {
 
   toastTimer = setTimeout(() => {
     hideToast();
-  }, 3000);  // 3秒表示
+  }, 3000);  // 3秒間表示
 }
 
 // トーストを隠す共通関数
@@ -228,7 +226,17 @@ function hideToast() {
   clearTimeout(toastTimer);
 }
 
-// Turboによるページ遷移完了時に処理を実行するイベントハンドラ
+// 遷移を実行する関数
+function redirectToRanking(difficulty, scoreId) {
+  const url = `/scores?difficulty=${difficulty}&new_score_id=${scoreId}`;
+  if (window.Turbo) {
+    window.Turbo.visit(url);
+  } else {
+    window.location.href = url;
+  }
+}
+
+// ページ遷移完了時に処理を実行するイベントハンドラ
 document.addEventListener("turbo:load", () => {
   const settings = getGameSettings();
   if (!settings) return;
@@ -246,7 +254,6 @@ document.addEventListener("turbo:load", () => {
 
   const closeButton = document.getElementById("close-toast");
   if (closeButton) {
-    // ページ読み込み時に一度だけ「消す機能」をセット
     closeButton.removeEventListener("click", hideToast);
     closeButton.addEventListener("click", hideToast);
   }
@@ -262,6 +269,7 @@ const sendScore = async () => {
 
   const seconds = Number(timeElement.dataset.seconds);
   const difficulty = Number(container.dataset.difficulty);
+  let transitionTimer; // 遷移用のタイマー
 
   try {
     const response = await fetch("/scores", {
@@ -280,26 +288,27 @@ const sendScore = async () => {
 
     if (response.ok) {
       const data = await response.json();
-      const newScoreId = data.id; // サーバーから返ってきた新しいスコアのID
       showClearToast(data.time, data.rank);
-      // 保存成功後、その難易度のランキングページへ遷移
-      setTimeout(() => {
-        if (window.Turbo) {
-          window.Turbo.visit(`/scores?difficulty=${difficulty}&new_score_id=${newScoreId}`);
-        } else {
-          window.location.href = `/scores?difficulty=${difficulty}&new_score_id=${newScoreId}`;
-        }
-      }, 3500); // 3.5秒後に遷移
 
+      transitionTimer = setTimeout(() => {
+        redirectToRanking(difficulty, data.id);
+      }, 3500)  // 3.5秒後に遷移
+
+      const closeButton = document.getElementById("close-toast");
+      if (closeButton) {
+        closeButton.addEventListener("click", () => {
+          clearTimeout(transitionTimer);
+          redirectToRanking(difficulty, data.id);
+        }, { once: true });
+      }
     } else {
+      stopTimer();
       console.error("Save failed");
       displayToast(i18n.saveError, true);
-      document.getElementById("time").textContent = "00:00";
     }
   } catch (error) {
     stopTimer()
     console.error("Communication error:", error.message);
     displayToast(i18n.networkError, true);
-    document.getElementById("time").textContent = "00:00";
   }
 };
