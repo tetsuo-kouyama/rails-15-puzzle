@@ -195,11 +195,17 @@ function showClearToast(elapsedTime, rank) {
 }
 
 // トーストを表示するロジック
-function displayToast(message) {
-  const toast = document.getElementById("success-toast");
+function displayToast(message, isError = false) {
+  const toast = document.getElementById("toast");
   const toastMessage = document.getElementById("toast-message");
 
   if (!toast || !toastMessage) return;
+
+  if (isError) {
+    toast.classList.add("is-error");
+  } else {
+    toast.classList.remove("is-error");
+  }
 
   toastMessage.textContent = message;
   toast.classList.add("is-visible");
@@ -208,13 +214,16 @@ function displayToast(message) {
 
   toastTimer = setTimeout(() => {
     hideToast();
-  }, 3000);
+  }, 3000);  // 3秒表示
 }
 
 // トーストを隠す共通関数
 function hideToast() {
-  const toast = document.getElementById("success-toast");
-  if (toast) toast.classList.remove("is-visible");
+  const toast = document.getElementById("toast");
+  if (!toast) return;
+
+  toast.classList.remove("is-visible");
+  toast.classList.remove("is-error");
 
   clearTimeout(toastTimer);
 }
@@ -275,13 +284,22 @@ const sendScore = async () => {
       showClearToast(data.time, data.rank);
       // 保存成功後、その難易度のランキングページへ遷移
       setTimeout(() => {
-        window.location.href = `/scores?difficulty=${difficulty}&new_score_id=${newScoreId}`;
-      }, 3000);
+        if (window.Turbo) {
+          window.Turbo.visit(`/scores?difficulty=${difficulty}&new_score_id=${newScoreId}`);
+        } else {
+          window.location.href = `/scores?difficulty=${difficulty}&new_score_id=${newScoreId}`;
+        }
+      }, 3500); // 3.5秒後に遷移
+
     } else {
-      const error = await response.json();
-      console.error("保存に失敗しました");
+      console.error("Save failed");
+      displayToast(i18n.saveError, true);
+      document.getElementById("time").textContent = "00:00";
     }
   } catch (error) {
-    console.error("通信エラー:", error);
+    stopTimer()
+    console.error("Communication error:", error.message);
+    displayToast(i18n.networkError, true);
+    document.getElementById("time").textContent = "00:00";
   }
 };
