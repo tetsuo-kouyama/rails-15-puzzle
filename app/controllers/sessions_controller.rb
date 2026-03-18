@@ -4,8 +4,12 @@ class SessionsController < ApplicationController
   def new; end
 
   def create
-    user = User.find_by(name: params[:session][:name])
+    if params[:session][:name].blank?
+      flash.now[:error] = t(".blank")
+      render :new, status: :unprocessable_entity and return
+    end
 
+    user = User.find_by(name: params[:session][:name])
     if user
       session[:user_id] = user.id
       redirect_to root_path, notice: t(".success", name: user.name)

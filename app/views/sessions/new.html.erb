@@ -1,7 +1,7 @@
 <% content_for(:title, t('sessions.title')) %>
 
 <header class="game-title">
-  <h1><%= t('sessions.title') %></h1>
+  <h1><%= t('sessions.subtitle') %></h1>
 </header>
 
 <div class="menu login-container" style="<%= board_background_style %>">
@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <%= form_with url: login_path, scope: :session, class: "game-form" do |f| %>
+  <%= form_with url: login_path, scope: :session, class: "game-form", html: { novalidate: true } do |f| %>
     <div class="form-group">
       <%= f.label :name, User.human_attribute_name(:name) %>
       <%= f.text_field :name, required: true, autofocus: true, class: "pixel-input" %>
