@@ -1,14 +1,19 @@
 ja:
+  errors:
+    format: "%{message}"
   activerecord:
     errors:
-      messages:
-        blank: "を入力してください"
-        taken: "はすでに使われています"
+      models:
+        user:
+          attributes:
+            name:
+              blank: 「名前を教えてくれないか？」
+              taken: 「その名前は別の者が名乗っているぞ！」
     models:
-      user: ユーザー
-      score: スコア
+      user: 冒険者
+      score: 記録
     attributes:
       user:
-        name: ユーザー名
+        name: 名前
       score:
-        clear_time: クリアタイム
+        clear_time: 踏破時間

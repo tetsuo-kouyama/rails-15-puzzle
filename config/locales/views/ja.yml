@@ -1,56 +1,58 @@
 ja:
   defaults:
-    require_login: ログインが必要です
+    require_login: 「まずは 名乗ってもらおうか」
   navbar:
     return: ← 戻る
-    login: ログイン
-    logout: ログアウト
-    new_registration: 新規登録
-    guest_user: ゲストユーザー
+    login: 入る
+    logout: 出る
+    new_registration: 名乗る
+    guest_user: 名もなき冒険者
   puzzles:
     title: エンシェント・グリッド
-    please_select: 難易度を選択してください
-    play_with_size: "%{size}パズルを遊ぶ"
-    ranking: ランキング
+    please_select: どのパズルに 挑戦する？
+    play_with_size: "%{size}パズルを選ぶ"
+    ranking: 記録一覧
     start: スタート
     title_with_size: "%{size}パズル"
-    elapsed_time_html: "タイム：%{time_id} "
+    elapsed_time_html: "記録：%{time} "
     show:
-      start_button: "スタート"
-      reset_button: "リセット"
+      start_button: スタート
+      reset_button: やり直す
       clear_message: |
         クリア！
-        タイムは%{time}でした！
-        第%{rank}位です！
+        記録：%{time}
+        お見事！ 第%{rank}位だ！
     messages:
-      save_error: スコアの保存に失敗しました
+      save_error: 記録を残せなかった！
       network_error: |
-        通信エラーが発生しました
-        接続を確認してください
+        ああっと！ 接続が
+        途絶えてしまった……
   scores:
-    title: "%{size}パズル ランキング"
+    title: "%{size}パズルの記録一覧"
     rank: 順位
-    name: ユーザー名
-    clear_time: クリアタイム
-    guest_user: ゲストユーザー
-    rank_format: "%{num}位"
+    name: 名前
+    clear_time: 記録
+    guest_user: 名もなき冒険者
+    rank_format: "第 %{num} 位"
     title_with_size: "%{size}パズル"
     create:
-      success: 保存しました
+      success: 記録完了！
   sessions:
     title: ログイン
-    login: ログイン
+    subtitle: 「お前は もしかして……！」
+    login: 名乗る
     create:
-      success: "%{name}さん、ログインしました！"
-      failure: ユーザー名が登録されていません
+      success: "「待っていたぞ！ %{name}！」"
+      failure: 「すまない 人違いだったようだ……」
+      blank: 「名前を教えてくれないか？」
     destroy:
-      success: ログアウトしました
+      success: 「また会おう！」
   users:
-    title: ユーザー登録
-    registration: 登録
+    title: 新規登録
+    subtitle: 「見ない顔だな 名を聞こう」
+    registration: 名乗る
     errors:
-      one: 1件のエラーがあります
-      other: "%{count}件のエラーがあります"
+      one: 1箇所 気になることがあるぞ
+      other: "あと%{count}箇所 直してくれ！"
     create:
-      success: "%{name}を登録しました"
-
+      success: "「%{name} か いい名だ！」"

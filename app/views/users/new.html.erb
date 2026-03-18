@@ -1,11 +1,11 @@
 <% content_for(:title, t('users.title')) %>
 
 <header class="game-title">
-  <h1><%= t('users.title') %></h1>
+  <h1><%= t('users.subtitle') %></h1>
 </header>
 
 <div class="menu login-container" style="<%= board_background_style %>">
-  <%= form_with model: @user, class: "game-form" do |f| %>
+  <%= form_with model: @user, class: "game-form", html: { novalidate: true } do |f| %>
     <div class="form-group">
       <%= f.label :name, User.human_attribute_name(:name) %>
       <%= f.text_field :name, required: true, autofocus: true, class: "pixel-input" %>
