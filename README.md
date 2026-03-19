@@ -1,24 +1,28 @@
-# README
+# Ancient Grid
+レトロゲーム風スライドパズルゲーム
+### 公開URL
+https://rails-15-puzzle.onrender.com
+## アプリを作った理由
+- Rails基礎①の復習に加え、JavaScriptによる動的なDOM操作の理解を深めるため、スライドパズルを題材にアプリを作成しました。
+- 単なるパズルではなく、ドット絵やフォントを用いて1990年代のRPGの世界観を意識したデザインに仕上げました。
+## できること（機能一覧）
+- スライドパズル (3×3、4×4、5×5)
+- ランキング機能 (上位10人を表示)
+- Stimulusを使ったフラッシュメッセージの表示
+- クリア時の演出 (トースト表示)
+- ログイン・新規登録機能 (簡易認証)
+## 技術スタック
+- Ruby 3.3.6
+- Ruby on Rails 7.2.1
+- PostgreSQL 17.9
+- JavaScript (Hotwire: Turbo / Stimulus)
+- Tailwind CSS (レトロゲーム風UIの実装)
+- Docker (開発環境)
+- Render (デプロイ)
+:
+## 今後の改善ポイント
+必要に応じてUI/UXの改善を行う予定です。
+※Render無料プランの仕様に基づき、データベースの保存期間は2026年3月27日までとなります。
+## デプロイ
+- Renderを使用して本番環境にデプロイ
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

@@ -5,7 +5,7 @@ ja:
     return: ← 戻る
     login: 入る
     logout: 出る
-    new_registration: 名乗る
+    new_registration: 登録
     guest_user: 名もなき冒険者
   puzzles:
     title: エンシェント・グリッド
