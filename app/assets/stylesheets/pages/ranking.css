@@ -4,8 +4,8 @@
     max-width: 700px;
 
     margin: 0 auto;
-    padding: 60px 50px; /* PC用のゆったりした余白 */
-    box-sizing: border-box; /* パディングを幅に含める設定（重要！） */
+    padding: 60px 50px; /* PC用の余白 */
+    box-sizing: border-box; /* パディングを幅に含める設定 */
   }
 
   /* テーブルを囲む要素の高さ調整 */
@@ -19,8 +19,8 @@
 
 /* ランキングテーブルヘッダー（順位・ユーザー名・クリアタイム） */
   .ranking-table td {
-    padding: 10px 0; /* 6px から 10px に少し戻してゆとりを持たせる */
-    font-size: 1rem;  /* 文字サイズも標準に戻してOK */
+    padding: 10px 0;
+    font-size: 1rem;
   }
 
   .ranking-table th {
@@ -71,7 +71,7 @@
   }
 
   .tab-button {
-    border-radius: 0; /* カクカクにする */
+    border-radius: 0; 
     border: 2px solid #fff;
     box-shadow: 2px 2px 0px #000; /* ドット絵風の影 */
     margin: 0 4px;
@@ -118,7 +118,7 @@
       margin: 2px;
     }
 
-    /* ユーザー名が長すぎる場合に省略する（任意） */
+    /* ユーザー名が長すぎる場合に省略する */
     .ranking-table td:nth-child(2) {
       max-width: 100px;
       overflow: hidden;

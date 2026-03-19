@@ -2,7 +2,7 @@
     width: 100%;
     text-align: center;
     margin: 0;
-    padding: 8px 0; /* 15pxから大幅カット */
+    padding: 8px 0; 
 
     /* フォント設定 */
     font-family: 'DotGothic16', 'PixelMplus12', sans-serif;

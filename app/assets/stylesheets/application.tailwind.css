@@ -25,7 +25,7 @@
     image-rendering: pixelated;
     /* 背景が動かないように固定する場合（任意） */
     background-attachment: fixed;
-    /* 画像のサイズ調整（元のドット感を活かすなら auto、大きくしたいなら 200px 等） */
+    /* 画像のサイズ調整 */
     background-size: 1024px;
 
     /* テキストのアンチエイリアスをオフ（ドット絵フォントを綺麗に見せる） */
