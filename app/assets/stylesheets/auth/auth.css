@@ -56,13 +56,31 @@
     color: #ffff00;
   }
 
-@media (max-width: 480px) {
+@media screen and (max-width: 480px) {
+  .form-container {
+    /* 横幅を画面の90%に制限して、左右に隙間を作る */
+    width: 90% !important;
+    max-width: 320px !important;
+    margin: 20px auto !important;
+    padding: 15px !important;
+
+    /* 要素が横に突き出さないようにする */
+    box-sizing: border-box !important;
+  }
+
   .form-group {
-    margin-bottom: 15px; /* 少し詰める */
+    /* 縦並びを維持しつつ、隙間を小さく */
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
   }
 
   .pixel-input, .pixel-button {
-    padding: 10px; /* 少しスリムに */
+    /* 入力欄とボタンが枠からはみ出さないように */
+    width: 100% !important;
+    box-sizing: border-box;
     font-size: 14px;
+    padding: 10px;
   }
 }

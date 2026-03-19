@@ -5,7 +5,6 @@
     height: min(80vmin, 600px);
     margin: 0 auto;
 
-    /* 背景画像としての指定は削除（::afterに移動） */
     padding: 19%; /* 枠の太さ分、中のパズルを小さくする */
     box-sizing: border-box;
 
@@ -46,7 +45,7 @@
     gap: 4px;
 
     background-size: cover;
-    touch-action: manipulation; /*ズーム誤作動を防ぐ*/
+    touch-action: manipulation; /* ズーム誤作動を防ぐ */
   }
 
   .tile {
@@ -64,7 +63,7 @@
     text-shadow: 2px 2px 0px #000;
     overflow: hidden;
 
-    user-select: none; /*誤操作防止*/
+    user-select: none; /* 誤操作防止 */
   }
 
   /* 空白タイルは画像を表示しない */

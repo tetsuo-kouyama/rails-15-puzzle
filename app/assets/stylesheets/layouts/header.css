@@ -18,7 +18,7 @@
   width: min(80vmin, 600px);
 
   display: flex;
-  justify-content: space-between; /* これで左右の端に分かれる */
+  justify-content: space-between; 
   align-items: center;
   padding: clamp(6px, 1.5vw, 10px) 0;
 }
