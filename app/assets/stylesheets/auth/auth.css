@@ -57,37 +57,36 @@
   }
 
 @media screen and (max-width: 480px) {
-  /* 外側の大きな枠（メニュー全体） */
   .login-container {
-    padding: 10px !important;
+    padding: 8px !important;
     display: flex;
     flex-direction: column;
-    align-items: center; /* 中身を中央に寄せる */
+    align-items: center;
   }
 
   .game-form {
-    width: 85% !important;
-    max-width: 300px !important;
+    width: 80% !important;         
+    max-width: 260px !important;
     margin: 0 auto !important;
-    padding: 15px !important;
+    padding: 12px !important;
     box-sizing: border-box !important;
 
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
   }
 
-  /* 入力欄とボタンを枠内に収める */
   .pixel-input, .pixel-button {
     width: 100% !important;
-    box-sizing: border-box !important; /* これがハミ出し防止に必須！ */
-    padding: 10px !important;
-    font-size: 14px;
+    box-sizing: border-box !important;
+    padding: 8px !important;
+    font-size: 13px;
   }
 
   .form-group label {
     display: block;
     text-align: center;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
+    font-size: 13px;
   }
 }
