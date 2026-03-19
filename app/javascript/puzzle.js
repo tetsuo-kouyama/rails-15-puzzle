@@ -1,19 +1,15 @@
 "use strict";  // 厳密なエラーチェックを行う
 
-let isPlaying = false;  // ゲームプレイ中フラグ
-let tiles = [];         // タイル配列
-let timer = null;       // タイマー(停止用)
-let startTime = null;   // 開始時刻
-let gridSize = 0;       // パズルの1辺の値(3,4,5)
-let lastIndex = 0;      // 空白マスのインデックス
-let i18n = {};          // Railsから渡された翻訳データを格納する
-let toastTimer;         // トースト表示の自動消去用タイマー
+let isPlaying = false;
+let tiles = [];  // タイル配列
+let timer = NaN;
+let startTime = null;
+let gridSize;
+let lastIndex;
+let i18n = {};
+let toastTimer;
 
-/*===================================
-  Game Logic（盤面操作・判定・進行管理）
-===================================*/
-
-// (1) パズルのボードの初期化とタイルの生成
+// 盤面を生成する関数
 function init() {
   let board = document.getElementById("puzzle-board");
   const tileImageUrl = board.dataset.tileImageUrl;
@@ -28,7 +24,7 @@ function init() {
     let tile = document.createElement("div");
     tile.className = "tile";
     tile.style.backgroundImage = `url('${tileImageUrl}')`;
-    tile.dataset.index = i; // タイルの正解位置を保持
+    tile.dataset.index = i; // カスタムデータ属性を使用
     tile.value = i;
 
     if (i === lastIndex) {
@@ -41,41 +37,40 @@ function init() {
     board.appendChild(tile);
     tiles.push(tile);
   }
-  // イベントリスナーの重複登録を防ぐため、一度削除してから登録
-  board.removeEventListener("click", click);
-  board.addEventListener("click", click);
+
+  board.addEventListener("click", click); // イベントリスナー
 }
 
-// (2) 指定されたタイルが空白に隣接していれば入れ替える
+
 function moveTile(i) {
   let moved = false;
-  // 上にマスが存在し、そのマスが空白（valueがlastIndex）なら入れ替え
+  // 上にタイルが存在する場合に比較
   if (i - gridSize >= 0 && tiles[i - gridSize].value === lastIndex) {
-    swap(i, i - gridSize); moved = true;
-  // 下にマスが存在し、そのマスが空白（valueがlastIndex）なら入れ替え
+    swap(i, i - gridSize); moved = true;    // 上と入れ替え
+  // 下にタイルが存在する場合に比較
   } else if (i + gridSize < tiles.length && tiles[i + gridSize].value === lastIndex) {
-    swap(i, i + gridSize); moved = true;
-  // 左にマスが存在し、そのマスが空白（valueがlastIndex）なら入れ替え
+    swap(i, i + gridSize); moved = true;    // 下と入れ替え
+  // 左にタイルが存在する場合に比較
   } else if (i % gridSize != 0 && tiles[i - 1].value === lastIndex) {
-    swap(i, i - 1); moved = true;
-  // 右にマスが存在し、そのマスが空白（valueがlastIndex）なら入れ替え
+    swap(i, i - 1); moved = true;           // 左と入れ替え
+  // 右にタイルが存在する場合に比較
   } else if (i % gridSize != gridSize - 1 && tiles[i + 1].value === lastIndex) {
-    swap(i, i + 1); moved = true;
+    swap(i, i + 1); moved = true;           // 右と入れ替え
   }
   return moved; // 移動したかを返す
 }
 
-// (3) スタート/リセットボタン押下時のハンドラ（ゲーム開始・リセット・タイマー制御）
+// ボタン押下時のハンドラ
 function startButtonClick(e) {
   const startButton = e.currentTarget;
-  if (!isPlaying) {  // スタート時
+  if (!isPlaying) {
     init();
     shuffle();
     startTime = new Date();
     timer = setInterval(tick, 1000)
     isPlaying = true;
     startButton.textContent = i18n.resetButton;
-  } else {           // リセット時
+  } else {
     if (timer) {
       stopTimer();
     }
@@ -86,7 +81,7 @@ function startButtonClick(e) {
   }
 }
 
-// (4) タイルクリック時のハンドラ（移動・クリア判定）
+
 function click(e) {
   if (!isPlaying) return;
   if (!e.target.classList.contains("tile")) return;
@@ -101,7 +96,7 @@ function click(e) {
   }
 }
 
-// (5) クリア時の処理
+// クリア後の処理
 function finishGame() {
   const startButton = document.getElementById("start-button");
 
@@ -113,16 +108,16 @@ function finishGame() {
   sendScore();
 }
 
-// (6) ランダムな合法手を繰り返してシャッフルする(常に解ける盤面になる)
+// タイルをシャッフル
 function shuffle() {
   for (let i = 0; i < 1000; i++) {
     moveTile(Math.floor(Math.random() * tiles.length));
   }
 }
 
-// (7) タイルを入れ替える処理（i番目とj番目のタイルの値と表示を更新）
+// i番目のタイルとj番目のタイルの番号を入れ替える
 function swap(i, j) {
-  let tmp = tiles[i].value;  // 変更先を一時退避
+  let tmp = tiles[i].value;                     // 変更先を一時退避
   tiles[i].value = tiles[j].value;
   tiles[j].value = tmp;
   tiles[i].textContent = tiles[i].value === lastIndex ? "" : tiles[i].value + 1;
@@ -131,7 +126,7 @@ function swap(i, j) {
   tiles[j].classList.toggle("empty", tiles[j].value === lastIndex);
 }
 
- // (8) 経過時間を更新する処理（１秒ごとに実行）
+ // 経過時間計測用タイマー（１秒ごとに実行）
 function tick() {
   let now = new Date();
   let elapsed = Math.floor((now.getTime() - startTime.getTime()) / 1000);
@@ -140,24 +135,24 @@ function tick() {
   timeElement.dataset.seconds = elapsed;
 }
 
-// (9) 現在の秒数を 00:00 形式の文字列に変換する処理
+// 現在の秒数を 00:00 形式の文字列にする関数
 function formatTime(totalSeconds) {
   totalSeconds = Math.floor(totalSeconds); // 小数点を切り捨てる
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
 
-  // padStart(2, '0') を使うことで、1桁の時に 0 を埋める
+  // padStart(2, '0') を使うと、1桁の時に 0 を埋める
   const m = String(minutes).padStart(2, '0');
   const s = String(seconds).padStart(2, '0');
 
   return `${m}:${s}`;
 }
 
-// (10) タイマーを停止する処理
+// タイマーを停止する関数
 function stopTimer() {
-  if (timer) {
+  if (!isNaN(timer)) {
     clearInterval(timer);
-    timer = null;
+    timer = NaN;
     isPlaying = false;
   }
 }
@@ -165,7 +160,7 @@ function stopTimer() {
 document.addEventListener("turbo:before-visit", stopTimer);
 document.addEventListener("turbo:before-cache", stopTimer);
 
-// (11) すべてのタイルが正しい位置にあるかを判定（クリア判定）する処理
+// クリアを判定する関数
 function checkWin() {
   for (let i = 0; i < tiles.length; i++) {
     if (tiles[i].value !== i) {
@@ -175,7 +170,7 @@ function checkWin() {
   return true;
 }
 
-// (12) DOMに埋め込まれたゲーム設定（i18n・盤面サイズ）を取得する処理
+// 共通データを取得する関数
 function getGameSettings() {
   const master = document.getElementById("game-master");
   if (!master) return null;
@@ -186,11 +181,7 @@ function getGameSettings() {
   };
 }
 
-/*=================================================
-  UI / Presentation（トースト表示・画面遷移・イベント）
-=================================================*/
-
-// (13) クリアメッセージを作成してトースト表示する処理
+// メッセージを作る関数
 function showClearToast(elapsedTime, rank) {
   if (!i18n || !i18n.clearMessage) return;
   const timeText = formatTime(elapsedTime);
@@ -201,7 +192,7 @@ function showClearToast(elapsedTime, rank) {
   displayToast(message);
 }
 
-// (14) トーストを表示する処理（メッセージ設定・エラースタイル切替・3秒後に自動非表示）
+// トーストを表示するロジック
 function displayToast(message, isError = false) {
   const toast = document.getElementById("toast");
   const toastMessage = document.getElementById("toast-message");
@@ -217,7 +208,6 @@ function displayToast(message, isError = false) {
   toastMessage.textContent = message;
   toast.classList.add("is-visible");
 
-  // 前のタイマーを止めて、表示時間をリセットする
   clearTimeout(toastTimer);
 
   toastTimer = setTimeout(() => {
@@ -225,7 +215,7 @@ function displayToast(message, isError = false) {
   }, 3000);  // 3秒間表示
 }
 
-// (15) トーストを非表示にして状態をリセットする処理
+// トーストを隠す共通関数
 function hideToast() {
   const toast = document.getElementById("toast");
   if (!toast) return;
@@ -236,7 +226,7 @@ function hideToast() {
   clearTimeout(toastTimer);
 }
 
-// (16) ランキング画面に遷移する処理（Turbo対応・未対応時は通常遷移）
+// 遷移を実行する関数
 function redirectToRanking(difficulty, scoreId) {
   const url = `/scores?difficulty=${difficulty}&new_score_id=${scoreId}`;
   if (window.Turbo) {
@@ -246,7 +236,7 @@ function redirectToRanking(difficulty, scoreId) {
   }
 }
 
-// (17) ページ表示時の初期化処理（設定取得・ゲーム初期化・イベント再登録）
+// ページ遷移完了時に処理を実行するイベントハンドラ
 document.addEventListener("turbo:load", () => {
   const settings = getGameSettings();
   if (!settings) return;
@@ -269,7 +259,7 @@ document.addEventListener("turbo:load", () => {
   }
 });
 
-// (18) クリア後の処理を行う（スコア送信・トースト表示・ランキング遷移）
+// クリア判定が true になった時に呼ぶ
 const sendScore = async () => {
   const token = document.querySelector('meta[name="csrf-token"]').content;
   const container = document.getElementById("game-master");
@@ -282,7 +272,6 @@ const sendScore = async () => {
   let transitionTimer; // 遷移用のタイマー
 
   try {
-    // スコアをサーバーに送信
     const response = await fetch("/scores", {
       method: "POST",
       headers: {
@@ -298,31 +287,26 @@ const sendScore = async () => {
     });
 
     if (response.ok) {
-      const data = await response.json();  // サーバーから返されたJSONを受け取る
-
-      // クリアメッセージを表示（順位・タイム）
+      const data = await response.json();
       showClearToast(data.time, data.rank);
 
       transitionTimer = setTimeout(() => {
         redirectToRanking(difficulty, data.id);
-      }, 3500)  // // トースト表示後、少し待ってランキング画面へ遷移
+      }, 3500)  // 3.5秒後に遷移
 
       const closeButton = document.getElementById("close-toast");
       if (closeButton) {
         closeButton.addEventListener("click", () => {
-          // 閉じるボタン押下時は待たずに即遷移（タイマーはキャンセル）
           clearTimeout(transitionTimer);
           redirectToRanking(difficulty, data.id);
         }, { once: true });
       }
     } else {
-      // 保存失敗時の処理
       stopTimer();
       console.error("Save failed");
       displayToast(i18n.saveError, true);
     }
   } catch (error) {
-    // 通信エラー時の処理
     stopTimer()
     console.error("Communication error:", error.message);
     displayToast(i18n.networkError, true);
