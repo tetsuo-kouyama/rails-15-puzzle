@@ -57,30 +57,37 @@
   }
 
 @media screen and (max-width: 480px) {
-  .form-container {
-    /* 横幅を画面の90%に制限して、左右に隙間を作る */
-    width: 90% !important;
-    max-width: 320px !important;
-    margin: 20px auto !important;
-    padding: 15px !important;
-
-    /* 要素が横に突き出さないようにする */
-    box-sizing: border-box !important;
-  }
-
-  .form-group {
-    /* 縦並びを維持しつつ、隙間を小さく */
+  /* 外側の大きな枠（メニュー全体） */
+  .login-container {
+    padding: 10px !important;
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    margin-bottom: 15px;
+    align-items: center; /* 中身を中央に寄せる */
   }
 
+  .game-form {
+    width: 85% !important;
+    max-width: 300px !important;
+    margin: 0 auto !important;
+    padding: 15px !important;
+    box-sizing: border-box !important;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  /* 入力欄とボタンを枠内に収める */
   .pixel-input, .pixel-button {
-    /* 入力欄とボタンが枠からはみ出さないように */
     width: 100% !important;
-    box-sizing: border-box;
+    box-sizing: border-box !important; /* これがハミ出し防止に必須！ */
+    padding: 10px !important;
     font-size: 14px;
-    padding: 10px;
+  }
+
+  .form-group label {
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
   }
 }
