@@ -7,6 +7,7 @@ ja:
         user:
           attributes:
             name:
+              too_long: 「すまない 聞き取れなかった 10文字以下で頼む」
               blank: 「名前を教えてくれないか？」
               taken: 「その名前は別の者が名乗っているぞ！」
     models:
