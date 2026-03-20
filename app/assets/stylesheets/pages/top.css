@@ -1,26 +1,51 @@
-  .game-title {
-    width: 100%;
+  .game-title-container {
     text-align: center;
-    margin: 0;
-    padding: 8px 0; 
-
-    /* フォント設定 */
-    font-family: 'DotGothic16', 'PixelMplus12', sans-serif;
-    font-size: clamp(18px, 6vw, 28px);
-    color: #ffff00;
-    /* ドット絵風の装飾 */
-    text-shadow: 2px 2px 0px #000;
-    letter-spacing: 2px;
-
-    /* スリムな境界線 */
-    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-    background-color: rgba(0, 0, 0, 0.2);
+    margin: 20px 0;
   }
 
-  .game-title h1 {
-    margin: 0;
-    font-size: inherit;
-    font-weight: normal;
+  .game-title-main {
+    font-family: 'Press Start 2P', cursive;
+    font-size: clamp(1.5rem, 5vw, 3rem); /* 最小1.5rem、最大3rem、画面幅に応じて自動縮小 */
+
+    /* 黄金のグラデーション */
+    background: linear-gradient(
+      to bottom,
+      #fff9c4 0%,    /* 最上部：強い光 */
+      #ffeb3b 25%,   /* 上部：明るい黄色 */
+      #ffd700 50%,   /* 中間：純金 */
+      #fbc02d 75%,   /* 下部：濃い金 */
+      #ffa000 100%   /* 最下部：影の手前 */
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+
+    /* ドット絵らしい縁取りと立体感（何層も影を重ねるのがコツ） */
+    filter:
+      drop-shadow(2px 2px 0 #4d3d00)
+      drop-shadow(-2px 2px 0 #4d3d00)
+      drop-shadow(2px -2px 0 #4d3d00)
+      drop-shadow(-2px -2px 0 #4d3d00)
+      drop-shadow(2px 2px 0 #332a00); /* 影を少し濃くして輪郭をはっきりさせる */
+
+    display: block;
+    letter-spacing: 4px;
+  }
+
+  .game-title-sub {
+    font-family: 'DotGothic16', cursive;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: #ffeb3b;
+    margin-top: 10px;
+    letter-spacing: 2px;
+    display: block;
+
+    filter:
+      drop-shadow(2px 2px 0 #332a00)   /* 右下への影 */
+      drop-shadow(1px 1px 0 #4d3d00)   /* 右下への影 */
+      drop-shadow(-1px -1px 0 #332a00); /* 左上への縁取り（くっきりさせる） */
+
+    opacity: 0.9; /* わずかに透かす */
   }
 
   .menu {

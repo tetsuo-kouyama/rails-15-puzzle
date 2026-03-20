@@ -2,11 +2,10 @@
   .login-container {
     height: auto;
     width: 90%;
-    max-width: 400px;
+    max-width: clamp(260px, 80vw, 400px);
     margin: 0 auto;
 
     padding: 32px 20px;
-    /* 中身がはみ出さないように計算に含める */
     box-sizing: border-box;
 
     /* 画像も一緒に伸びるように設定を確認 */
@@ -16,10 +15,17 @@
   }
 
   .form-group {
-    margin-bottom: 20px;
+    margin-bottom: clamp(12px, 2vw, 20px);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: clamp(6px, 1.5vw, 10px);
+  }
+
+  .form-group label {
+    font-size: clamp(10px, 1.5vw, 14px);
+    text-align: center;
+    margin-bottom: 4px;
+    display: block;
   }
 
   /* 入力欄をドット絵風にする */
@@ -27,8 +33,9 @@
     background-color: #222;
     border: 2px solid #555;
     color: #fff;
-    padding: 8px;
-    font-size: 16px;
+    font-size: clamp(12px, 2vw, 16px);
+    padding: clamp(6px, 1.5vw, 8px);
+
     font-family: 'DotGothic16', sans-serif;
     outline: none;
 
@@ -46,7 +53,8 @@
     border: 3px double #fff; /* 二重線でレトロ感を出す */
     color: #fff;
     width: 100%;
-    padding: 12px 32px;
+    font-size: clamp(12px, 2vw, 16px);
+    padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 32px);
     font-family: 'DotGothic16', sans-serif;
     cursor: pointer;
   }
@@ -55,38 +63,3 @@
     background-color: #666;
     color: #ffff00;
   }
-
-@media screen and (max-width: 480px) {
-  .login-container {
-    padding: 8px !important;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .game-form {
-    width: 80% !important;         
-    max-width: 260px !important;
-    margin: 0 auto !important;
-    padding: 12px !important;
-    box-sizing: border-box !important;
-
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .pixel-input, .pixel-button {
-    width: 100% !important;
-    box-sizing: border-box !important;
-    padding: 8px !important;
-    font-size: 13px;
-  }
-
-  .form-group label {
-    display: block;
-    text-align: center;
-    margin-bottom: 4px;
-    font-size: 13px;
-  }
-}

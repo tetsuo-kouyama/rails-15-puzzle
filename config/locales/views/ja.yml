@@ -8,7 +8,7 @@ ja:
     new_registration: 登録
     guest_user: 名もなき冒険者
   puzzles:
-    title: エンシェント・グリッド
+    subtitle: エンシェント・グリッド
     please_select: どのパズルに 挑戦する？
     play_with_size: "%{size}パズルを選ぶ"
     ranking: 記録一覧
