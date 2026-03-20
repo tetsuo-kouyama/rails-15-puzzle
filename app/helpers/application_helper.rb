@@ -11,7 +11,7 @@ module ApplicationHelper
   end
 
   def page_title(title = "")
-    base_title = "Ancient Grid"
+    base_title = "ANCIENT GRID"
     title.present? ? "#{title} | #{base_title}" : base_title
   end
 end
