@@ -29,4 +29,4 @@ https://rails-15-puzzle.onrender.com
 モバイルデバイス向けのUI/UXの改善（4×4以上の盤面表示）
 ## デプロイ
 Renderを使用して本番環境にデプロイ  
-※Render無料プランの仕様に基づき、データベースの保存期間は2026年3月27日までとなります。
+※2026年3月26日に、Render PostgreSQL（Free Tier）の30日制限に対応するため、データベースを Neon へ移行しました。
